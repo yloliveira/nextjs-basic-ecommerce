@@ -3,18 +3,18 @@ import Search from "./search";
 
 const submit = jest.fn();
 
+beforeEach(() => {
+  render(<Search submit={submit} />);
+});
+
 describe("components/Search", () => {
   it("should render a form", async () => {
-    render(<Search submit={submit} />);
     expect(screen.getByRole("form")).toBeInTheDocument();
   });
 
-  it("should call props.submit() when form is submitted", async () => {
-    render(<Search submit={submit} />);
+  it("should call props.submit() when form is submitted", () => {
     const form = screen.getByRole("form");
-
     fireEvent.submit(form);
-
     expect(submit).toHaveBeenCalledTimes(1);
   });
 });
