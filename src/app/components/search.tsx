@@ -13,7 +13,7 @@ export default function Search({ submit }: Props) {
 
   return (
     <form onSubmit={onSubmit} name="search-form">
-      <input type="text" name="search-input" />
+      <input type="search" name="search-input" />
     </form>
   );
 }
