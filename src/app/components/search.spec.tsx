@@ -13,6 +13,10 @@ describe("components/Search", () => {
     expect(screen.getByRole("form")).toBeInTheDocument();
   });
 
+  it("should render a input with search type", async () => {
+    expect(screen.getByRole("searchbox")).toHaveProperty("type", "search");
+  });
+
   it("should call props.submit() when form is submitted", () => {
     const form = screen.getByRole("form");
     fireEvent.submit(form);
@@ -22,7 +26,7 @@ describe("components/Search", () => {
 
   it("should call props.submit() with the user input", async () => {
     const form = screen.getByRole("form");
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole("searchbox");
     const text = "text to search";
 
     await userEvent.type(input, text);
