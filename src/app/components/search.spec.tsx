@@ -13,7 +13,7 @@ describe("components/Search", () => {
     render(<Search submit={submit} />);
     const form = screen.getByRole("form");
 
-    await fireEvent.submit(form);
+    fireEvent.submit(form);
 
     expect(submit).toHaveBeenCalledTimes(1);
   });

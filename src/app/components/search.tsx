@@ -1,3 +1,7 @@
-export default function Search() {
-  return <form name="search-form"></form>;
+type Props = {
+  submit: () => void;
+};
+
+export default function Search({ submit }: Props) {
+  return <form onSubmit={() => submit()} name="search-form"></form>;
 }
