@@ -1,7 +1,19 @@
 type Props = {
-  submit: () => void;
+  submit: ({ text }: { text: string }) => void;
 };
 
 export default function Search({ submit }: Props) {
-  return <form onSubmit={() => submit()} name="search-form"></form>;
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    const input = event.currentTarget.elements.namedItem(
+      "search-input"
+    ) as HTMLInputElement;
+
+    submit({ text: input.value });
+  }
+
+  return (
+    <form onSubmit={onSubmit} name="search-form">
+      <input type="text" name="search-input" />
+    </form>
+  );
 }
