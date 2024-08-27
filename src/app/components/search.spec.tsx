@@ -2,10 +2,10 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Search from "./search";
 
-const submit = jest.fn();
+const handleSubmit = jest.fn();
 
 beforeEach(() => {
-  render(<Search submit={submit} />);
+  render(<Search onSubmit={handleSubmit} />);
 });
 
 describe("components/Search", () => {
@@ -21,7 +21,7 @@ describe("components/Search", () => {
     const form = screen.getByRole("form");
     fireEvent.submit(form);
 
-    expect(submit).toHaveBeenCalledTimes(1);
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
   it("should call props.submit() with the user input", async () => {
@@ -32,6 +32,6 @@ describe("components/Search", () => {
     await userEvent.type(input, text);
     fireEvent.submit(form);
 
-    expect(submit).toHaveBeenCalledWith({ text });
+    expect(handleSubmit).toHaveBeenCalledWith({ text });
   });
 });
