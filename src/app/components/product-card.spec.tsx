@@ -6,6 +6,7 @@ const product = {
   price: {
     originalAmount: 4990,
     numberOfInstallmentsWithoutTaxes: 10,
+    installmentValue: 499,
   },
   image:
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0286e0143870775.6282940c27f00.jpeg",
@@ -52,18 +53,28 @@ describe("components/ProductCard", () => {
 
     const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
 
-    expect(
-      screen.queryByText(new RegExp(textToMatch, "i"))
-    ).toBeInTheDocument();
+    expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+      new RegExp(textToMatch, "i")
+    );
   });
 
   it("should not render number of installments without taxes information if quantity is 1", () => {
-    const product2 = { ...product };
-    product2.price.numberOfInstallmentsWithoutTaxes = 1;
+    const product2 = {
+      ...product,
+      price: { ...product.price, numberOfInstallmentsWithoutTaxes: 1 },
+    };
     render(<ProductCard product={product2} />);
 
-    const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
+    expect(screen.queryByTestId("installmentsText")).not.toBeInTheDocument();
+  });
 
-    expect(screen.queryByText(new RegExp(textToMatch, "i"))).toBeNull();
+  it("should render installment value if installments quantity is greater than 1", () => {
+    render(<ProductCard product={product} />);
+
+    const textToMatch = String(product.price.installmentValue);
+
+    expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+      new RegExp(textToMatch, "i")
+    );
   });
 });
