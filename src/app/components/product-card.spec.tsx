@@ -54,4 +54,13 @@ describe("components/ProductCard", () => {
       screen.queryByText(new RegExp(textToMatch, "i"))
     ).toBeInTheDocument();
   });
+
+  it("should not render number of installments without taxes information if quantity is 1", () => {
+    const product2 = { ...product, numberOfInstallmentsWithoutTaxes: 1 };
+    render(<ProductCard product={product2} />);
+
+    const textToMatch = product.numberOfInstallmentsWithoutTaxes + "x";
+
+    expect(screen.queryByText(new RegExp(textToMatch, "i"))).toBeNull();
+  });
 });
