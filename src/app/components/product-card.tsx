@@ -1,7 +1,9 @@
 import Image from "next/image";
 
 type Props = {
+  onClick: (productSlugId: string) => void;
   product: {
+    slugId: string;
     title: string;
     price: {
       originalAmount: number;
@@ -13,9 +15,9 @@ type Props = {
   };
 };
 
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({ onClick, product }: Props) {
   return (
-    <div>
+    <div data-testid="container" onClick={() => onClick(product.slugId)}>
       <Image alt={product.title} src={product.image} width={100} height={100} />
       <h3>{product.title}</h3>
       <h3>{product.price.originalAmount}</h3>
