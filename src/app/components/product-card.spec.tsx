@@ -5,11 +5,11 @@ const product = {
   title: "product title",
   price: {
     originalAmount: 4990,
+    numberOfInstallmentsWithoutTaxes: 10,
   },
   image:
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0286e0143870775.6282940c27f00.jpeg",
   freeShipping: true,
-  numberOfInstallmentsWithoutTaxes: 10,
 };
 
 describe("components/ProductCard", () => {
@@ -50,7 +50,7 @@ describe("components/ProductCard", () => {
   it("should render number of installments without taxes information if quantity is greater than 1", () => {
     render(<ProductCard product={product} />);
 
-    const textToMatch = product.numberOfInstallmentsWithoutTaxes + "x";
+    const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
 
     expect(
       screen.queryByText(new RegExp(textToMatch, "i"))
@@ -58,10 +58,11 @@ describe("components/ProductCard", () => {
   });
 
   it("should not render number of installments without taxes information if quantity is 1", () => {
-    const product2 = { ...product, numberOfInstallmentsWithoutTaxes: 1 };
+    const product2 = { ...product };
+    product2.price.numberOfInstallmentsWithoutTaxes = 1;
     render(<ProductCard product={product2} />);
 
-    const textToMatch = product.numberOfInstallmentsWithoutTaxes + "x";
+    const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
 
     expect(screen.queryByText(new RegExp(textToMatch, "i"))).toBeNull();
   });

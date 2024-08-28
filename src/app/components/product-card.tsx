@@ -5,10 +5,10 @@ type Props = {
     title: string;
     price: {
       originalAmount: number;
+      numberOfInstallmentsWithoutTaxes: number;
     };
     image: string;
     freeShipping: boolean;
-    numberOfInstallmentsWithoutTaxes: number;
   };
 };
 
@@ -21,8 +21,10 @@ export default function ProductCard({ product }: Props) {
       {product.freeShipping && (
         <div data-testid="freeShipping">Frete grátis</div>
       )}
-      {product.numberOfInstallmentsWithoutTaxes > 1 && (
-        <div>em {product.numberOfInstallmentsWithoutTaxes}x sem juros</div>
+      {product.price.numberOfInstallmentsWithoutTaxes > 1 && (
+        <div>
+          em {product.price.numberOfInstallmentsWithoutTaxes}x sem juros
+        </div>
       )}
     </div>
   );
