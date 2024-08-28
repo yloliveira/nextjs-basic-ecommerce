@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import ProductCard from "./product-card";
 
 const product = {
+  slugId: "product_title",
   title: "product title",
   price: {
     originalAmount: 4990,
@@ -13,16 +14,18 @@ const product = {
   freeShipping: true,
 };
 
+const onClick = jest.fn();
+
 describe("components/ProductCard", () => {
   it("should render the props.product.image", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     expect(screen.getByRole("img")).toBeInTheDocument();
     expect(screen.getByRole("img")).toHaveProperty("alt", product.title);
   });
 
   it("should render the props.product.title", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     expect(
       screen.getByText(new RegExp(product.title, "i"))
@@ -30,26 +33,26 @@ describe("components/ProductCard", () => {
   });
 
   it("should render the props.product.price", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     expect(screen.getByText(product.price.originalAmount)).toBeInTheDocument();
   });
 
   it("should render free shipping text if the props.product.freeShipping is true", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     expect(screen.getByTestId("freeShipping")).toBeInTheDocument();
   });
 
   it("should not render free shipping text if the props.product.freeShipping is false", () => {
     const product2 = { ...product, freeShipping: false };
-    render(<ProductCard product={product2} />);
+    render(<ProductCard onClick={onClick} product={product2} />);
 
     expect(screen.queryByTestId("freeShipping")).toBeNull();
   });
 
   it("should render number of installments without taxes information if quantity is greater than 1", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
 
@@ -63,18 +66,27 @@ describe("components/ProductCard", () => {
       ...product,
       price: { ...product.price, numberOfInstallmentsWithoutTaxes: 1 },
     };
-    render(<ProductCard product={product2} />);
+    render(<ProductCard onClick={onClick} product={product2} />);
 
     expect(screen.queryByTestId("installmentsText")).not.toBeInTheDocument();
   });
 
   it("should render installment value if installments quantity is greater than 1", () => {
-    render(<ProductCard product={product} />);
+    render(<ProductCard onClick={onClick} product={product} />);
 
     const textToMatch = String(product.price.installmentValue);
 
     expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
       new RegExp(textToMatch, "i")
     );
+  });
+
+  it("should call props.onClick with the product slugId", () => {
+    render(<ProductCard onClick={onClick} product={product} />);
+
+    fireEvent.click(screen.getByTestId("container"));
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith(product.slugId);
   });
 });
