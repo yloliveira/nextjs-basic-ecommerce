@@ -7,6 +7,7 @@ const product = {
   image:
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0286e0143870775.6282940c27f00.jpeg",
   freeShipping: true,
+  numberOfInstallmentsWithoutTaxes: 10,
 };
 
 describe("components/ProductCard", () => {
@@ -42,5 +43,15 @@ describe("components/ProductCard", () => {
     render(<ProductCard product={product2} />);
 
     expect(screen.queryByTestId("freeShipping")).toBeNull();
+  });
+
+  it("should render number of installments without taxes information if quantity is greater than 1", () => {
+    render(<ProductCard product={product} />);
+
+    const textToMatch = product.numberOfInstallmentsWithoutTaxes + "x";
+
+    expect(
+      screen.queryByText(new RegExp(textToMatch, "i"))
+    ).toBeInTheDocument();
   });
 });
