@@ -3,7 +3,9 @@ import ProductCard from "./product-card";
 
 const product = {
   title: "product title",
-  price: 4990,
+  price: {
+    originalAmount: 4990,
+  },
   image:
     "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0286e0143870775.6282940c27f00.jpeg",
   freeShipping: true,
@@ -29,7 +31,7 @@ describe("components/ProductCard", () => {
   it("should render the props.product.price", () => {
     render(<ProductCard product={product} />);
 
-    expect(screen.getByText(product.price)).toBeInTheDocument();
+    expect(screen.getByText(product.price.originalAmount)).toBeInTheDocument();
   });
 
   it("should render free shipping text if the props.product.freeShipping is true", () => {
