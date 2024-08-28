@@ -21,6 +21,7 @@ describe("components/ProductCard", () => {
     render(<ProductCard onClick={onClick} product={product} />);
 
     expect(screen.getByRole("img")).toBeInTheDocument();
+    expect(screen.getByRole("img")).toHaveProperty("src", product.image);
     expect(screen.getByRole("img")).toHaveProperty("alt", product.title);
   });
 
