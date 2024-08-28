@@ -36,4 +36,11 @@ describe("components/ProductCard", () => {
 
     expect(screen.getByTestId("freeShipping")).toBeInTheDocument();
   });
+
+  it("should not render free shipping text if the props.product.freeShipping is false", () => {
+    const product2 = { ...product, freeShipping: false };
+    render(<ProductCard product={product2} />);
+
+    expect(screen.queryByTestId("freeShipping")).toBeNull();
+  });
 });
