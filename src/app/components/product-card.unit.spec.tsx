@@ -85,7 +85,7 @@ describe("components/ProductCard", () => {
   it("should call props.onClick with the product slugId", () => {
     render(<ProductCard onClick={onClick} product={product} />);
 
-    fireEvent.click(screen.getByTestId("container"));
+    fireEvent.click(screen.getByTestId("product-card"));
 
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith(product.slugId);
