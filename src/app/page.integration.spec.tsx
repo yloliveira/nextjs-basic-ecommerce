@@ -7,4 +7,9 @@ describe("components/Search", () => {
     expect(screen.getByRole("form")).toBeInTheDocument();
     expect(screen.getByRole("form")).toHaveProperty("name", "search-form");
   });
+
+  it("should render the ProductList", () => {
+    render(<Home />);
+    expect(screen.getByTestId("product-list")).toBeInTheDocument();
+  });
 });
