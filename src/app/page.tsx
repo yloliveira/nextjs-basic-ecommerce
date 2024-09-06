@@ -2,10 +2,10 @@
 import React from "react";
 import ProductCard from "@/app/components/product-card";
 import Search from "@/app/components/search";
-import { Product } from "./models/product";
+import { useFetchProducts } from "@/app/hooks/useFetchProducts";
 
 export default function Home() {
-  const [products, setProducts] = React.useState<Product[]>([]);
+  const { products, error } = useFetchProducts();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
