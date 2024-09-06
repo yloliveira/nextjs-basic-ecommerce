@@ -10,7 +10,11 @@ export const config: Config = {
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   setupFiles: ["<rootDir>/__mocks__/next.tsx"],
-  collectCoverageFrom: ["<rootDir>/src/app/components/**/*.tsx"],
+  collectCoverageFrom: [
+    "<rootDir>/src/app/components/**/*.tsx",
+    "<rootDir>/src/app/hooks/**/*.ts",
+    "<rootDir>/src/app/**/page.tsx",
+  ],
 };
 
 export default createJestConfig(config);
