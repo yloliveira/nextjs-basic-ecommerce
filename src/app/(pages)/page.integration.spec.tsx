@@ -38,7 +38,8 @@ describe("pages/Home", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("no-product")).toBeInTheDocument();
-      expect(screen.queryAllByAltText("product-card")).toHaveLength(0);
+      expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
+      expect(screen.queryByTestId("products-quantity")).not.toBeInTheDocument();
     });
   });
 
@@ -51,7 +52,22 @@ describe("pages/Home", () => {
     await waitFor(() => {
       expect(screen.getByTestId("fetch-error")).toBeInTheDocument();
       expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
-      expect(screen.queryAllByAltText("product-card")).toHaveLength(0);
+      expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
+      expect(screen.queryByTestId("products-quantity")).not.toBeInTheDocument();
+    });
+  });
+
+  it("should display the total quantity of products", async () => {
+    server.createList("product", 10);
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("products-quantity")).toBeInTheDocument();
+      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
+        new RegExp("10", "i")
+      );
+      expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
     });
   });
 });
