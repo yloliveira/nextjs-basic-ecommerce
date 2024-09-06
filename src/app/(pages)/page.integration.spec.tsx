@@ -33,7 +33,7 @@ describe("pages/Home", () => {
     });
   });
 
-  it("should render the no products message", async () => {
+  it("should render the no-products message and shouldn't render the error and product-quantity messages, neither the product list", async () => {
     render(<Home />);
 
     await waitFor(() => {
@@ -43,7 +43,7 @@ describe("pages/Home", () => {
     });
   });
 
-  it("should display an error message when promise rejects", async () => {
+  it("should display the error message when promise rejects and shouldn't render the no-products and product-quantity messages, neither the product list", async () => {
     server.get("products", () => {
       return new Response(500, {}, "");
     });
@@ -57,7 +57,7 @@ describe("pages/Home", () => {
     });
   });
 
-  it("should display the total quantity of products", async () => {
+  it("should display the total quantity of products and shouldn't render the error and no-products messages", async () => {
     server.createList("product", 10);
     render(<Home />);
 
