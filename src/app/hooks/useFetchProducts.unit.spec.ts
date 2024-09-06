@@ -24,7 +24,7 @@ describe("hooks/useFetchProducts", () => {
   });
 
   it("should set error to true when catch block is executed", async () => {
-    server.get("/api/products", () => {
+    server.get("products", () => {
       return new Response(500, {}, "");
     });
     const { result } = renderHook(() => useFetchProducts());
