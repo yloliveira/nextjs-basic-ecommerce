@@ -17,7 +17,9 @@ export default function Home() {
     }
 
     return (
-      <div data-testid="products-quantity">{products.length} produtos</div>
+      <div data-testid="products-quantity">
+        {products.length} {products.length === 1 ? "produto" : "produtos"}
+      </div>
     );
   }
 
