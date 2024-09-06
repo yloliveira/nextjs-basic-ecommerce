@@ -18,6 +18,10 @@ export default function Home() {
             key={product.slugId}
           />
         ))}
+
+        {products.length === 0 && (
+          <div data-testid="no-product">Nenhum Produto encontrado...</div>
+        )}
       </div>
     </main>
   );
