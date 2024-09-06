@@ -19,8 +19,12 @@ export default function Home() {
           />
         ))}
 
-        {products.length === 0 && (
+        {products.length === 0 && !error && (
           <div data-testid="no-product">Nenhum Produto encontrado...</div>
+        )}
+
+        {error && (
+          <div data-testid="fetch-error">Algo deu errado por aqui...</div>
         )}
       </div>
     </main>
