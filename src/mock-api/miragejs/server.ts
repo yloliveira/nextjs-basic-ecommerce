@@ -14,9 +14,7 @@ export function makeServer({ environment = "test" } = {}) {
       server.createList("product", 25);
     },
     routes() {
-      this.namespace = "api";
-
-      this.get("/products", schema => {
+      this.get("/api/products", schema => {
         return schema.all("products");
       });
     },
