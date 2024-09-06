@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Home from "./page";
 
-describe("components/Search", () => {
+describe("pages/Home", () => {
   it("should render Search form component", () => {
     render(<Home />);
     expect(screen.getByRole("form")).toBeInTheDocument();
