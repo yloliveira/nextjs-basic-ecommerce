@@ -32,4 +32,13 @@ describe("pages/Home", () => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(10);
     });
   });
+
+  it("should render the no products message", async () => {
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("no-product")).toBeInTheDocument();
+      expect(screen.queryAllByAltText("product-card")).toHaveLength(0);
+    });
+  });
 });
