@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { Server } from "miragejs";
+import { Response, Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
 import Home from "./page";
 
@@ -38,6 +38,19 @@ describe("pages/Home", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("no-product")).toBeInTheDocument();
+      expect(screen.queryAllByAltText("product-card")).toHaveLength(0);
+    });
+  });
+
+  it("should display an error message when promise rejects", async () => {
+    server.get("products", () => {
+      return new Response(500, {}, "");
+    });
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("fetch-error")).toBeInTheDocument();
+      expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
       expect(screen.queryAllByAltText("product-card")).toHaveLength(0);
     });
   });
