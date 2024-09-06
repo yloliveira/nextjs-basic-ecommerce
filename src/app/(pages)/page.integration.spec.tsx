@@ -66,6 +66,26 @@ describe("pages/Home", () => {
       expect(screen.getByTestId("products-quantity")).toHaveTextContent(
         new RegExp("10", "i")
       );
+      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
+        new RegExp("s", "i")
+      );
+      expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
+    });
+  });
+
+  it("should display product (singular) when there is only 1 product to show", async () => {
+    server.createList("product", 1);
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("products-quantity")).toBeInTheDocument();
+      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
+        new RegExp("1", "i")
+      );
+      expect(screen.getByTestId("products-quantity")).not.toHaveTextContent(
+        new RegExp("s", "i")
+      );
       expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
       expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
     });
