@@ -7,22 +7,25 @@ import { useFetchProducts } from "@/app/hooks/useFetchProducts";
 export default function Home() {
   const { products, error } = useFetchProducts();
 
+  function renderHeaderMessage() {
+    if (error) {
+      return <div data-testid="fetch-error">Algo deu errado por aqui...</div>;
+    }
+
+    if (products.length === 0) {
+      return <div data-testid="no-product">Nenhum Produto encontrado...</div>;
+    }
+
+    return (
+      <div data-testid="products-quantity">{products.length} produtos</div>
+    );
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Search onSubmit={() => {}} />
+      {renderHeaderMessage()}
       <div data-testid="product-list">
-        {products.length === 0 && !error && (
-          <div data-testid="no-product">Nenhum Produto encontrado...</div>
-        )}
-
-        {error && (
-          <div data-testid="fetch-error">Algo deu errado por aqui...</div>
-        )}
-
-        {products.length > 0 && !error && (
-          <div data-testid="products-quantity">{products.length} produtos</div>
-        )}
-
         {products.map(product => (
           <ProductCard
             onClick={() => {}}
