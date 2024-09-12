@@ -4,6 +4,13 @@ import { Response, Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
 import Home from "./page";
 
+const pushMock = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: pushMock,
+  }),
+}));
+
 describe("pages/Home", () => {
   let server: Server;
 
@@ -144,6 +151,23 @@ describe("pages/Home", () => {
     await waitFor(() => {
       expect(screen.getAllByTestId("product-card")).toHaveLength(1);
       expect(screen.getByText(new RegExp(searchTerm, "i"))).toBeInTheDocument();
+    });
+  });
+
+  it("should call router.push() with the url containing the correct product slugId when the product is clicked", async () => {
+    const slugId = "product_slugId";
+    server.create("product", {
+      slugId,
+    } as object);
+    render(<Home />);
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("product-card"));
+    });
+
+    await waitFor(() => {
+      expect(pushMock).toHaveBeenCalledWith(`/product/${slugId}`);
+      expect(pushMock).toHaveBeenCalledTimes(1);
     });
   });
 });
