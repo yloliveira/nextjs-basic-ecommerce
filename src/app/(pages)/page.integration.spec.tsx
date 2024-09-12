@@ -20,6 +20,7 @@ describe("pages/Home", () => {
 
   afterEach(() => {
     server.shutdown();
+    jest.clearAllMocks();
   });
   it("should render Search form component", () => {
     render(<Home />);
@@ -63,18 +64,11 @@ describe("pages/Home", () => {
     });
   });
 
-  it("should filter the product when a search is performed", async () => {
+  it("should call router.push() with the url containing the correct term for search", async () => {
     const searchTerm = "Product Title";
 
     server.createList("product", 2);
-    server.create("product", {
-      title: searchTerm,
-    } as object);
     render(<Home />);
-
-    await waitFor(() => {
-      expect(screen.getAllByTestId("product-card")).toHaveLength(3);
-    });
 
     const form = screen.getByRole("form");
     const input = screen.getByRole("searchbox");
@@ -83,8 +77,8 @@ describe("pages/Home", () => {
     fireEvent.submit(form);
 
     await waitFor(() => {
-      expect(screen.getAllByTestId("product-card")).toHaveLength(1);
-      expect(screen.getByText(new RegExp(searchTerm, "i"))).toBeInTheDocument();
+      expect(pushMock).toHaveBeenCalledWith(`/search&term=${searchTerm}`);
+      expect(pushMock).toHaveBeenCalledTimes(1);
     });
   });
 
