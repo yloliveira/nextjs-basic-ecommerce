@@ -9,6 +9,10 @@ beforeEach(() => {
 });
 
 describe("components/Search", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should render a form", async () => {
     expect(screen.getByRole("form")).toBeInTheDocument();
   });
@@ -33,5 +37,16 @@ describe("components/Search", () => {
     fireEvent.submit(form);
 
     expect(handleSubmit).toHaveBeenCalledWith({ text });
+  });
+
+  it("should call props.submit() when search input is cleared", async () => {
+    const input = screen.getByRole("searchbox");
+    const text = "text to search";
+
+    await userEvent.type(input, text);
+    await userEvent.clear(input);
+
+    expect(handleSubmit).toHaveBeenCalledWith({ text: "" });
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 });
