@@ -21,13 +21,6 @@ describe("components/Search", () => {
     expect(screen.getByRole("searchbox")).toHaveProperty("type", "search");
   });
 
-  it("should call props.onSubmit() when form is submitted", () => {
-    const form = screen.getByRole("form");
-    fireEvent.submit(form);
-
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
-  });
-
   it("should call props.onSubmit() with the user input", async () => {
     const form = screen.getByRole("form");
     const input = screen.getByRole("searchbox");
@@ -37,5 +30,12 @@ describe("components/Search", () => {
     fireEvent.submit(form);
 
     expect(handleSubmit).toHaveBeenCalledWith({ text });
+  });
+
+  it("should not call props.onSubmit() when form is submitted without user input", () => {
+    const form = screen.getByRole("form");
+    fireEvent.submit(form);
+
+    expect(handleSubmit).not.toHaveBeenCalled();
   });
 });
