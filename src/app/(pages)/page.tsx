@@ -34,10 +34,13 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between px-5">
       <Search onSubmit={onSubmitSearchForm} />
       {renderHeaderMessage()}
-      <div data-testid="product-list">
+      <div
+        data-testid="product-list"
+        className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-10"
+      >
         {products.map(product => (
           <ProductCard
             onClick={onClickProduct}
