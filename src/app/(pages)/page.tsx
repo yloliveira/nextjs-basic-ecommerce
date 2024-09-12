@@ -28,21 +28,25 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-between px-5">
-      <Search onSubmit={onSubmitSearchForm} />
+    <main className="flex flex-col items-center justify-between gap-10">
+      <header className="w-full h-28 bg-brandPrimary py-2 px-5">
+        <Search onSubmit={onSubmitSearchForm} />
+      </header>
       {renderHeaderMessage()}
-      <div
-        data-testid="product-list"
-        className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-10"
-      >
-        {products.map(product => (
-          <ProductCard
-            onClick={onClickProduct}
-            product={product}
-            key={product.slugId}
-          />
-        ))}
-      </div>
+      <section className="px-5">
+        <div
+          data-testid="product-list"
+          className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-10 rounded-md"
+        >
+          {products.map(product => (
+            <ProductCard
+              onClick={onClickProduct}
+              product={product}
+              key={product.slugId}
+            />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
