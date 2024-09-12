@@ -1,10 +1,11 @@
 "use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { makeServer } from "../mock-api/miragejs/server";
 
 if (process.env.NODE_ENV === "development") {
-  makeServer({ environment: "development" });
+  require("../mock-api/miragejs/server").makeServer({
+    environment: "development",
+  });
 }
 
 const inter = Inter({ subsets: ["latin"] });
