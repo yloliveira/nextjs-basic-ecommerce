@@ -21,14 +21,14 @@ describe("components/Search", () => {
     expect(screen.getByRole("searchbox")).toHaveProperty("type", "search");
   });
 
-  it("should call props.submit() when form is submitted", () => {
+  it("should call props.onSubmit() when form is submitted", () => {
     const form = screen.getByRole("form");
     fireEvent.submit(form);
 
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
-  it("should call props.submit() with the user input", async () => {
+  it("should call props.onSubmit() with the user input", async () => {
     const form = screen.getByRole("form");
     const input = screen.getByRole("searchbox");
     const text = "text to search";
@@ -39,7 +39,7 @@ describe("components/Search", () => {
     expect(handleSubmit).toHaveBeenCalledWith({ text });
   });
 
-  it("should call props.submit() when search input is cleared", async () => {
+  it("should call props.onSubmit() when search input is cleared", async () => {
     const input = screen.getByRole("searchbox");
     const text = "text to search";
 
