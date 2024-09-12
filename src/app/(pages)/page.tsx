@@ -1,14 +1,20 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import ProductCard from "@/app/components/product-card";
 import Search from "@/app/components/search";
 import { useFetchProducts } from "@/app/hooks/useFetchProducts";
 
 export default function Home() {
+  const router = useRouter();
   const { products, error, setFilter } = useFetchProducts();
 
   const onSubmitSearchForm = ({ text }: { text: string }) => {
     setFilter(text);
+  };
+
+  const onClickProduct = (productSlugId: string) => {
+    router.push(`/product/${productSlugId}`);
   };
 
   function renderHeaderMessage() {
@@ -34,7 +40,7 @@ export default function Home() {
       <div data-testid="product-list">
         {products.map(product => (
           <ProductCard
-            onClick={() => {}}
+            onClick={onClickProduct}
             product={product}
             key={product.slugId}
           />
