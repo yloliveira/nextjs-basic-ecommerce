@@ -10,7 +10,7 @@ export default function Home() {
   const { products, error, setFilter } = useFetchProducts();
 
   const onSubmitSearchForm = ({ text }: { text: string }) => {
-    setFilter(text);
+    router.push(`/search&term=${text}`);
   };
 
   const onClickProduct = (productSlugId: string) => {
