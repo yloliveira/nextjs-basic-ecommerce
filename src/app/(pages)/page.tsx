@@ -5,7 +5,11 @@ import Search from "@/app/components/search";
 import { useFetchProducts } from "@/app/hooks/useFetchProducts";
 
 export default function Home() {
-  const { products, error } = useFetchProducts();
+  const { products, error, setFilter } = useFetchProducts();
+
+  const onSubmitSearchForm = ({ text }: { text: string }) => {
+    setFilter(text);
+  };
 
   function renderHeaderMessage() {
     if (error) {
@@ -25,7 +29,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Search onSubmit={() => {}} />
+      <Search onSubmit={onSubmitSearchForm} />
       {renderHeaderMessage()}
       <div data-testid="product-list">
         {products.map(product => (

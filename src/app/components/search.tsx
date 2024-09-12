@@ -4,6 +4,7 @@ type Props = {
 
 export default function Search({ onSubmit }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const input = event.currentTarget.elements.namedItem(
       "search-input"
     ) as HTMLInputElement;
