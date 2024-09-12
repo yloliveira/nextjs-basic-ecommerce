@@ -92,6 +92,36 @@ describe("pages/Home", () => {
     });
   });
 
+  it("should display proper quantity when list is filtered", async () => {
+    const searchTerm = "Product Title";
+
+    server.createList("product", 2);
+    server.create("product", {
+      title: searchTerm,
+    } as object);
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(3);
+      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
+        new RegExp("3", "i")
+      );
+    });
+
+    const form = screen.getByRole("form");
+    const input = screen.getByRole("searchbox");
+
+    await userEvent.type(input, searchTerm);
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(1);
+      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
+        new RegExp("1", "i")
+      );
+    });
+  });
+
   it("should filter the product when a search is performed", async () => {
     const searchTerm = "Product Title";
 
