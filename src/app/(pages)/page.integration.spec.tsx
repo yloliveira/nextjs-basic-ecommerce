@@ -47,7 +47,6 @@ describe("pages/Home", () => {
     await waitFor(() => {
       expect(screen.getByTestId("no-product")).toBeInTheDocument();
       expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
-      expect(screen.queryByTestId("products-quantity")).not.toBeInTheDocument();
     });
   });
 
@@ -61,71 +60,6 @@ describe("pages/Home", () => {
       expect(screen.getByTestId("fetch-error")).toBeInTheDocument();
       expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
       expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
-      expect(screen.queryByTestId("products-quantity")).not.toBeInTheDocument();
-    });
-  });
-
-  it("should display the total quantity of products and shouldn't render the error and no-products messages", async () => {
-    server.createList("product", 10);
-    render(<Home />);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("products-quantity")).toBeInTheDocument();
-      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
-        new RegExp("10", "i")
-      );
-      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
-        new RegExp("s", "i")
-      );
-      expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
-    });
-  });
-
-  it("should display product (singular) when there is only 1 product to show", async () => {
-    server.createList("product", 1);
-    render(<Home />);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("products-quantity")).toBeInTheDocument();
-      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
-        new RegExp("1", "i")
-      );
-      expect(screen.getByTestId("products-quantity")).not.toHaveTextContent(
-        new RegExp("s", "i")
-      );
-      expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
-    });
-  });
-
-  it("should display proper quantity when list is filtered", async () => {
-    const searchTerm = "Product Title";
-
-    server.createList("product", 2);
-    server.create("product", {
-      title: searchTerm,
-    } as object);
-    render(<Home />);
-
-    await waitFor(() => {
-      expect(screen.getAllByTestId("product-card")).toHaveLength(3);
-      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
-        new RegExp("3", "i")
-      );
-    });
-
-    const form = screen.getByRole("form");
-    const input = screen.getByRole("searchbox");
-
-    await userEvent.type(input, searchTerm);
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(screen.getAllByTestId("product-card")).toHaveLength(1);
-      expect(screen.getByTestId("products-quantity")).toHaveTextContent(
-        new RegExp("1", "i")
-      );
     });
   });
 

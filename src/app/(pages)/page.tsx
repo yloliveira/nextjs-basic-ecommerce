@@ -25,12 +25,6 @@ export default function Home() {
     if (products.length === 0) {
       return <div data-testid="no-product">Nenhum Produto encontrado...</div>;
     }
-
-    return (
-      <div data-testid="products-quantity">
-        {products.length} {products.length === 1 ? "produto" : "produtos"}
-      </div>
-    );
   }
 
   return (

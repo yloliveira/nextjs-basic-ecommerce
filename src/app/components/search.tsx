@@ -22,8 +22,17 @@ export default function Search({ onSubmit }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} name="search-form">
-      <input type="search" name="search-input" onInput={onInput} />
+    <form
+      onSubmit={handleSubmit}
+      name="search-form"
+      className="w-full flex items-center justify-center"
+    >
+      <input
+        type="search"
+        name="search-input"
+        onInput={onInput}
+        className="shadow h-10 w-full max-w-md"
+      />
     </form>
   );
 }
