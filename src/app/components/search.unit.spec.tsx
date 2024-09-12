@@ -38,15 +38,4 @@ describe("components/Search", () => {
 
     expect(handleSubmit).toHaveBeenCalledWith({ text });
   });
-
-  it("should call props.onSubmit() when search input is cleared", async () => {
-    const input = screen.getByRole("searchbox");
-    const text = "text to search";
-
-    await userEvent.type(input, text);
-    await userEvent.clear(input);
-
-    expect(handleSubmit).toHaveBeenCalledWith({ text: "" });
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
-  });
 });

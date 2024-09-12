@@ -12,13 +12,9 @@ export default function Search({ onSubmit }: Props) {
     onSubmit({ text });
   }
 
-  const onInput = (e: React.FormEvent<HTMLInputElement>) => {
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     setText(target.value);
-
-    if (target.value === "") {
-      onSubmit({ text: target.value });
-    }
   };
 
   return (
@@ -30,7 +26,7 @@ export default function Search({ onSubmit }: Props) {
       <input
         type="search"
         name="search-input"
-        onInput={onInput}
+        onChange={onChange}
         className="shadow h-10 w-full max-w-md"
       />
     </form>
