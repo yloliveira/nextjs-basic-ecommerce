@@ -1,4 +1,5 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Response, Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
 import Home from "./page";
@@ -88,6 +89,31 @@ describe("pages/Home", () => {
       );
       expect(screen.queryByTestId("fetch-error")).not.toBeInTheDocument();
       expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
+    });
+  });
+
+  it("should filter the product when a search is performed", async () => {
+    const searchTerm = "Product Title";
+
+    server.createList("product", 2);
+    server.create("product", {
+      title: searchTerm,
+    } as object);
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(3);
+    });
+
+    const form = screen.getByRole("form");
+    const input = screen.getByRole("searchbox");
+
+    await userEvent.type(input, searchTerm);
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(screen.getAllByTestId("product-card")).toHaveLength(1);
+      expect(screen.getByText(new RegExp(searchTerm, "i"))).toBeInTheDocument();
     });
   });
 });
