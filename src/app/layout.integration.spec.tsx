@@ -17,4 +17,13 @@ describe("app/Layout", () => {
     );
     expect(screen.getByTestId("header")).toBeInTheDocument();
   });
+
+  it("should render the Footer component", async () => {
+    render(
+      <Body>
+        <div />
+      </Body>
+    );
+    expect(screen.getByTestId("footer")).toBeInTheDocument();
+  });
 });
