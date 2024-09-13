@@ -51,4 +51,54 @@ describe("pages/Product", () => {
       expect(screen.getByTestId("original-amount")).toBeInTheDocument();
     });
   });
+
+  it("should render number of installments without taxes information if quantity is greater than 1", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    const textToMatch = product.price.numberOfInstallmentsWithoutTaxes + "x";
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
+  });
+
+  it("should not render number of installments without taxes information if quantity is 1", async () => {
+    const product2 = {
+      ...product,
+      slugId: "slugId-2",
+      price: { ...product.price, numberOfInstallmentsWithoutTaxes: 1 },
+    };
+    server.create("product", product2 as object);
+    render(<Product params={{ slugId: product2.slugId }} />);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("installmentsText")).not.toBeInTheDocument();
+    });
+  });
+
+  it("should render installment value if installments quantity is greater than 1", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    const textToMatch = String(product.price.installmentValue);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
+  });
+
+  it("should render installment value formatted to BRL currency", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    const textToMatch = String("R\\$ 499,00");
+
+    await waitFor(() => {
+      expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
+  });
 });
