@@ -16,6 +16,13 @@ export default function Product({ params }: { params: { slugId: string } }) {
       <h3 data-testid="original-amount" className="text-lg font-semibold">
         {Currency.format(product.price.originalAmount)}
       </h3>
+      {product.price.numberOfInstallmentsWithoutTaxes > 1 && (
+        <div data-testid="installmentsText" className="text-xs font-light">
+          {`em ${
+            product.price.numberOfInstallmentsWithoutTaxes
+          }x ${Currency.format(product.price.installmentValue)} sem juros`}
+        </div>
+      )}
     </main>
   );
 }
