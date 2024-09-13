@@ -30,6 +30,12 @@ export default function Home() {
           data-testid="product-list"
           className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-5 gap-y-10 rounded-md"
         >
+          <h2
+            data-testid="product-list-title"
+            className="col-span-2 md:col-span-4 lg:col-span-6 text-xl font-semibold"
+          >
+            Ofertas do dia
+          </h2>
           {products.map(product => (
             <ProductCard
               onClick={onClickProduct}
