@@ -36,7 +36,15 @@ describe("components/ProductCard", () => {
   it("should render the props.product.price", () => {
     render(<ProductCard onClick={onClick} product={product} />);
 
-    expect(screen.getByText(product.price.originalAmount)).toBeInTheDocument();
+    expect(screen.getByTestId("original-amount")).toHaveTextContent(
+      "R$ 4.990,00"
+    );
+  });
+
+  it("should render the props.product.price formatted to BRL currency", () => {
+    render(<ProductCard onClick={onClick} product={product} />);
+
+    expect(screen.getByTestId("original-amount")).toBeInTheDocument();
   });
 
   it("should render free shipping text if the props.product.freeShipping is true", () => {
@@ -76,6 +84,16 @@ describe("components/ProductCard", () => {
     render(<ProductCard onClick={onClick} product={product} />);
 
     const textToMatch = String(product.price.installmentValue);
+
+    expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
+      new RegExp(textToMatch, "i")
+    );
+  });
+
+  it("should render installment value formatted to BRL currency", () => {
+    render(<ProductCard onClick={onClick} product={product} />);
+
+    const textToMatch = String("R\\$ 499,00");
 
     expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
       new RegExp(textToMatch, "i")
