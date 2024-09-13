@@ -110,4 +110,14 @@ describe("pages/Product", () => {
       expect(screen.getByText(product.description)).toBeInTheDocument();
     });
   });
+
+  it("should render the image of the product", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("img")).toBeInTheDocument();
+      expect(screen.getByRole("img")).toHaveProperty("src", product.image);
+      expect(screen.getByRole("img")).toHaveProperty("alt", product.title);
+    });
+  });
 });
