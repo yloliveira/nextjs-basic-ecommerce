@@ -23,6 +23,11 @@ describe("pages/Home", () => {
     jest.clearAllMocks();
   });
 
+  it("should render the title of the ProductList", () => {
+    render(<Home />);
+    expect(screen.getByTestId("product-list-title")).toBeInTheDocument();
+  });
+
   it("should render the ProductList", () => {
     render(<Home />);
     expect(screen.getByTestId("product-list")).toBeInTheDocument();
