@@ -21,6 +21,7 @@ describe("pages/Product", () => {
 
   beforeEach(() => {
     server = makeServer({ environment: "test" });
+    server.create("product", product as object);
   });
 
   afterEach(() => {
@@ -28,11 +29,26 @@ describe("pages/Product", () => {
   });
 
   it("should render the title of the Product", async () => {
-    server.create("product", product as object);
     render(<Product params={{ slugId: product.slugId }} />);
 
     await waitFor(() => {
       expect(screen.getByText(product.title)).toBeInTheDocument();
+    });
+  });
+
+  it("should render the props.product.price", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+    await waitFor(() => {
+      expect(screen.getByTestId("original-amount")).toHaveTextContent(
+        "R$ 4.990,00"
+      );
+    });
+  });
+
+  it("should render the props.product.price formatted to BRL currency", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+    await waitFor(() => {
+      expect(screen.getByTestId("original-amount")).toBeInTheDocument();
     });
   });
 });
