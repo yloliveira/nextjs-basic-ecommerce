@@ -1,4 +1,6 @@
-const products = [
+import { Product } from "@/app/models/product";
+
+const products: Product[] = [
   {
     freeShipping: true,
     image: "https://loremflickr.com/640/480?lock=6383769095241728",
@@ -9,7 +11,8 @@ const products = [
     },
     title: "Rustic Bronze Shirt",
     slugId: "cavus-deripio-beatae-comedo-approbo",
-    id: "1",
+    description:
+      "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
   },
   {
     freeShipping: true,
@@ -21,7 +24,8 @@ const products = [
     },
     title: "Ergonomic Concrete Pants",
     slugId: "illum-uter-adficio-viscus-trans",
-    id: "2",
+    description:
+      "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
   },
   {
     freeShipping: true,
@@ -33,7 +37,8 @@ const products = [
     },
     title: "Elegant Bronze Chicken",
     slugId: "ipsa-spiritus-socius-cognomen-deleniti",
-    id: "3",
+    description:
+      "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
   },
   {
     freeShipping: true,
@@ -45,7 +50,8 @@ const products = [
     },
     title: "Incredible Bronze Hat",
     slugId: "utique-alius-arceo-aveho-cultellus",
-    id: "4",
+    description:
+      "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
   },
   {
     freeShipping: true,
@@ -57,7 +63,8 @@ const products = [
     },
     title: "Rustic Bronze Chicken",
     slugId: "spiritus-utrum-illum-summa-tener",
-    id: "5",
+    description:
+      "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
   },
   {
     freeShipping: true,
@@ -69,7 +76,8 @@ const products = [
     },
     title: "Oriental Concrete Pants",
     slugId: "anser-tumultus-aqua-veritatis-conforto",
-    id: "6",
+    description:
+      "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
   },
   {
     freeShipping: true,
@@ -81,7 +89,8 @@ const products = [
     },
     title: "Luxurious Granite Mouse",
     slugId: "verbera-nobis-vulnus-allatus-defluo",
-    id: "7",
+    description:
+      "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
   },
   {
     freeShipping: true,
@@ -93,7 +102,8 @@ const products = [
     },
     title: "Incredible Concrete Pizza",
     slugId: "cum-vomica-vis-pectus-omnis",
-    id: "8",
+    description:
+      "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
   },
   {
     freeShipping: true,
@@ -105,7 +115,8 @@ const products = [
     },
     title: "Sleek Steel Gloves",
     slugId: "angelus-defendo-carpo-tutamen-currus",
-    id: "9",
+    description:
+      "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
   },
   {
     freeShipping: true,
@@ -117,7 +128,8 @@ const products = [
     },
     title: "Generic Granite Chicken",
     slugId: "quas-deficio-traho-ancilla-condico",
-    id: "10",
+    description:
+      "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
   },
   {
     freeShipping: true,
@@ -129,7 +141,8 @@ const products = [
     },
     title: "Rustic Bronze Tuna",
     slugId: "vestrum-ascisco-vis-surculus-creber",
-    id: "11",
+    description:
+      "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
   },
   {
     freeShipping: true,
@@ -141,7 +154,8 @@ const products = [
     },
     title: "Recycled Metal Sausages",
     slugId: "temeritas-tenuis-arx-cimentarius-iste",
-    id: "12",
+    description:
+      "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
   },
   {
     freeShipping: true,
@@ -153,7 +167,8 @@ const products = [
     },
     title: "Tasty Wooden Mouse",
     slugId: "illum-quidem-valens-advoco-tego",
-    id: "13",
+    description:
+      "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
   },
   {
     freeShipping: true,
@@ -165,7 +180,8 @@ const products = [
     },
     title: "Practical Soft Towels",
     slugId: "ambitus-clementia-sufficio-super-theatrum",
-    id: "14",
+    description:
+      "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
   },
   {
     freeShipping: true,
@@ -177,7 +193,8 @@ const products = [
     },
     title: "Practical Plastic Tuna",
     slugId: "cohors-constans-conforto-casso-adsidue",
-    id: "15",
+    description:
+      "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
   },
   {
     freeShipping: true,
@@ -189,7 +206,8 @@ const products = [
     },
     title: "Oriental Steel Shirt",
     slugId: "pel-tantum-arca-solum-audeo",
-    id: "16",
+    description:
+      "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
   },
   {
     freeShipping: true,
@@ -201,7 +219,8 @@ const products = [
     },
     title: "Handcrafted Wooden Table",
     slugId: "agnosco-conatus-ipsa-vos-aspicio",
-    id: "17",
+    description:
+      "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
   },
   {
     freeShipping: true,
@@ -213,7 +232,8 @@ const products = [
     },
     title: "Recycled Metal Pizza",
     slugId: "tener-cupressus-alioqui-cattus-cervus",
-    id: "18",
+    description:
+      "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
   },
   {
     freeShipping: true,
@@ -225,7 +245,8 @@ const products = [
     },
     title: "Recycled Fresh Bacon",
     slugId: "molestiae-conqueror-adduco-infit-sollicito",
-    id: "19",
+    description:
+      "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
   },
   {
     freeShipping: true,
@@ -237,7 +258,8 @@ const products = [
     },
     title: "Handcrafted Granite Car",
     slugId: "sumo-nam-cotidie-degusto-vulgo",
-    id: "20",
+    description:
+      "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
   },
   {
     freeShipping: true,
@@ -249,7 +271,8 @@ const products = [
     },
     title: "Generic Granite Cheese",
     slugId: "tergiversatio-animadverto-timidus-necessitatibus-acidus",
-    id: "21",
+    description:
+      "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
   },
   {
     freeShipping: true,
@@ -261,7 +284,8 @@ const products = [
     },
     title: "Gorgeous Rubber Towels",
     slugId: "conduco-corrumpo-cattus-attollo-vado",
-    id: "22",
+    description:
+      "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
   },
   {
     freeShipping: true,
@@ -273,7 +297,8 @@ const products = [
     },
     title: "Unbranded Plastic Hat",
     slugId: "atqui-videlicet-avaritia-adflicto-contego",
-    id: "23",
+    description:
+      "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
   },
   {
     freeShipping: true,
@@ -285,7 +310,8 @@ const products = [
     },
     title: "Elegant Metal Soap",
     slugId: "accommodo-explicabo-omnis-attonbitus-dolore",
-    id: "24",
+    description:
+      "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
   },
   {
     freeShipping: true,
@@ -297,7 +323,8 @@ const products = [
     },
     title: "Practical Wooden Hat",
     slugId: "ustilo-laboriosam-absens-tener-desparatus",
-    id: "25",
+    description:
+      "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
   },
 ];
 

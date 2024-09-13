@@ -4,6 +4,7 @@ import ProductCard from "./product-card";
 const product = {
   slugId: "product_title",
   title: "product title",
+  description: "Product description",
   price: {
     originalAmount: 4990,
     numberOfInstallmentsWithoutTaxes: 10,

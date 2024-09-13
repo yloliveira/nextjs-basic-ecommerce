@@ -6,6 +6,7 @@ import Product from "./page";
 const product = {
   slugId: "product_title",
   title: "product title",
+  description: "Product description",
   price: {
     originalAmount: 4990,
     numberOfInstallmentsWithoutTaxes: 10,
@@ -99,6 +100,14 @@ describe("pages/Product", () => {
       expect(screen.queryByTestId("installmentsText")).toHaveTextContent(
         new RegExp(textToMatch, "i")
       );
+    });
+  });
+
+  it("should render the description of the Product", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(screen.getByText(product.description)).toBeInTheDocument();
     });
   });
 });

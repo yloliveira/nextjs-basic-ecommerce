@@ -9,6 +9,9 @@ export const productFactory = Factory.extend({
   title(): string {
     return faker.commerce.productName();
   },
+  description(): string {
+    return faker.commerce.productDescription();
+  },
   price(): ProductPrice {
     const originalAmount = Number(faker.commerce.price());
     const numberOfInstallmentsWithoutTaxes = faker.number.int({
