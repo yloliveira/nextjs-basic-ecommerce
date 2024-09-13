@@ -6,4 +6,9 @@ describe("components/BuyBox", () => {
     render(<BuyBox />);
     expect(screen.getByTestId("buy-now")).toBeInTheDocument();
   });
+
+  it("should render a 'Add to cart' button", async () => {
+    render(<BuyBox />);
+    expect(screen.getByTestId("add-to-cart")).toBeInTheDocument();
+  });
 });
