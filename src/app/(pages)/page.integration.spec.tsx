@@ -22,11 +22,6 @@ describe("pages/Home", () => {
     server.shutdown();
     jest.clearAllMocks();
   });
-  it("should render Search form component", () => {
-    render(<Home />);
-    expect(screen.getByRole("form")).toBeInTheDocument();
-    expect(screen.getByRole("form")).toHaveProperty("name", "search-form");
-  });
 
   it("should render the ProductList", () => {
     render(<Home />);
@@ -61,24 +56,6 @@ describe("pages/Home", () => {
       expect(screen.getByTestId("fetch-error")).toBeInTheDocument();
       expect(screen.queryByTestId("no-product")).not.toBeInTheDocument();
       expect(screen.queryAllByTestId("product-card")).toHaveLength(0);
-    });
-  });
-
-  it("should call router.push() with the url containing the correct term for search", async () => {
-    const searchTerm = "Product Title";
-
-    server.createList("product", 2);
-    render(<Home />);
-
-    const form = screen.getByRole("form");
-    const input = screen.getByRole("searchbox");
-
-    await userEvent.type(input, searchTerm);
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(pushMock).toHaveBeenCalledWith(`/search&term=${searchTerm}`);
-      expect(pushMock).toHaveBeenCalledTimes(1);
     });
   });
 

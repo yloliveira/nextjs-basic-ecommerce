@@ -2,16 +2,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import ProductCard from "@/app/components/product-card";
-import Search from "@/app/components/search";
 import { useFetchProducts } from "@/app/hooks/useFetchProducts";
 
 export default function Home() {
   const router = useRouter();
   const { products, error, setFilter } = useFetchProducts();
-
-  const onSubmitSearchForm = ({ text }: { text: string }) => {
-    router.push(`/search&term=${text}`);
-  };
 
   const onClickProduct = (productSlugId: string) => {
     router.push(`/product/${productSlugId}`);
@@ -29,9 +24,6 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-between gap-10">
-      <header className="w-full h-28 bg-brandPrimary py-2 px-5">
-        <Search onSubmit={onSubmitSearchForm} />
-      </header>
       {renderHeaderMessage()}
       <section className="px-5">
         <div
