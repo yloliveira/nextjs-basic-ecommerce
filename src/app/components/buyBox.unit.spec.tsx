@@ -11,4 +11,10 @@ describe("components/BuyBox", () => {
     render(<BuyBox />);
     expect(screen.getByTestId("add-to-cart")).toBeInTheDocument();
   });
+
+  it("should render a quantity select box with 5 options", async () => {
+    render(<BuyBox />);
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
+    expect(screen.getByRole("combobox")).toHaveLength(5);
+  });
 });
