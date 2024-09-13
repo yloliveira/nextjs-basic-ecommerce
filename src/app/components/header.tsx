@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <header
-      className="w-full h-28 bg-brandPrimary py-2 px-5"
+      className="w-full h-28 bg-brandPrimary py-2 px-5 mb-10"
       data-testid="header"
     >
       <Search onSubmit={onSubmitSearchForm} />
