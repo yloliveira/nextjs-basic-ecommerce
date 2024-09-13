@@ -120,4 +120,12 @@ describe("pages/Product", () => {
       expect(screen.getByRole("img")).toHaveProperty("alt", product.title);
     });
   });
+
+  it("should render the BuyBox component", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("buy-box")).toBeInTheDocument();
+    });
+  });
 });
