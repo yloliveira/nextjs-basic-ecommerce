@@ -18,6 +18,16 @@ describe("app/Layout", () => {
     expect(screen.getByTestId("header")).toBeInTheDocument();
   });
 
+  it("should render the children component", async () => {
+    const children = "children";
+    render(
+      <Body>
+        <div data-testid={children} />
+      </Body>
+    );
+    expect(screen.getByTestId(children)).toBeInTheDocument();
+  });
+
   it("should render the Footer component", async () => {
     render(
       <Body>
