@@ -1,7 +1,8 @@
-import { createServer, Model, Response, Registry, Server } from "miragejs";
+import { createServer, Model, Response, Registry } from "miragejs";
 import Schema from "miragejs/orm/schema";
 import { productFactory } from "./factories/product";
 import { ProductModel } from "./models";
+import products from "./fixtures/products";
 
 type AppRegistry = Registry<
   {
@@ -17,11 +18,14 @@ export function makeServer({ environment = "test" } = {}) {
     models: {
       products: Model,
     },
+    fixtures: {
+      products,
+    },
     factories: {
       product: productFactory,
     },
     seeds(server) {
-      server.createList("product", 25);
+      server.loadFixtures();
     },
     routes() {
       this.namespace = "api";
@@ -36,6 +40,17 @@ export function makeServer({ environment = "test" } = {}) {
         }
 
         return schema.all("products");
+      });
+
+      this.get("product/:slugId", (schema: AppSchema, request) => {
+        const slugId = String(request.params.slugId);
+        const product = schema.findBy("products", { slugId });
+
+        if (!product) {
+          return new Response(404, {}, "Product not found");
+        }
+
+        return { product };
       });
     },
   });
