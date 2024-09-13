@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
+import Footer from "./components/footer";
 
 /* c8 ignore start */
 if (process.env.NODE_ENV === "development") {
@@ -36,6 +37,7 @@ export function Body({
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 }
