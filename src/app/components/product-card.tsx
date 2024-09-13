@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Product } from "@/app/models/product";
+import Currency from "@/app/utils/currency";
 
 type Props = {
   onClick: (productSlugId: string) => void;
@@ -17,10 +18,14 @@ export default function ProductCard({ onClick, product }: Props) {
       <h3 className="text-sm my-3 group-hover:text-blue-500">
         {product.title}
       </h3>
-      <h3 className="text-lg font-semibold">{product.price.originalAmount}</h3>
+      <h3 data-testid="original-amount" className="text-lg font-semibold">
+        {Currency.format(product.price.originalAmount)}
+      </h3>
       {product.price.numberOfInstallmentsWithoutTaxes > 1 && (
         <div data-testid="installmentsText" className="text-xs font-light">
-          {`em ${product.price.numberOfInstallmentsWithoutTaxes}x R$ ${product.price.installmentValue} sem juros`}
+          {`em ${
+            product.price.numberOfInstallmentsWithoutTaxes
+          }x ${Currency.format(product.price.installmentValue)} sem juros`}
         </div>
       )}
       {product.freeShipping && (
