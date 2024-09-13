@@ -23,6 +23,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
           }x ${Currency.format(product.price.installmentValue)} sem juros`}
         </div>
       )}
+      <p>{product.description}</p>
     </main>
   );
 }
