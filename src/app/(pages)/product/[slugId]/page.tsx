@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import { useFetchProduct } from "@/app/hooks/useFetchProduct";
@@ -12,6 +13,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
 
   return (
     <main className="">
+      <img alt={product.title} src={product.image} className="w-full h-auto" />
       <h1>{product.title}</h1>
       <h3 data-testid="original-amount" className="text-lg font-semibold">
         {Currency.format(product.price.originalAmount)}
