@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function BuyBox() {
+type Props = {
+  onClickBuyNow: () => void;
+};
+
+export default function BuyBox({ onClickBuyNow }: Props) {
   return (
     <div
       data-testid="buy-box"
@@ -17,6 +21,7 @@ export default function BuyBox() {
         <button
           data-testid="buy-now"
           className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base"
+          onClick={() => onClickBuyNow()}
         >
           Comprar agora
         </button>
