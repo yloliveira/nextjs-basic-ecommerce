@@ -2,9 +2,10 @@ import React from "react";
 
 type Props = {
   onClickBuyNow: () => void;
+  onClickAddToCart: () => void;
 };
 
-export default function BuyBox({ onClickBuyNow }: Props) {
+export default function BuyBox({ onClickBuyNow, onClickAddToCart }: Props) {
   return (
     <div
       data-testid="buy-box"
@@ -28,6 +29,7 @@ export default function BuyBox({ onClickBuyNow }: Props) {
         <button
           data-testid="add-to-cart"
           className="w-full h-12 rounded-md font-semibold text-base text-blue-500 bg-blue-50"
+          onClick={() => onClickAddToCart()}
         >
           Adicionar ao carrinho
         </button>
