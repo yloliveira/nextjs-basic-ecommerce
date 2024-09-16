@@ -4,7 +4,7 @@ export default function BuyBox() {
   return (
     <div
       data-testid="buy-box"
-      className="border rounded-lg border-gray-200 flex flex-col justify-between p-5 gap-2"
+      className="sm:border rounded-lg sm:border-gray-200 flex flex-col justify-between sm:p-5 gap-2"
     >
       <select>
         <option value="1">1</option>

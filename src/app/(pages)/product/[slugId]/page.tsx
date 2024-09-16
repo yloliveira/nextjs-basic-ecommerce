@@ -13,8 +13,8 @@ export default function Product({ params }: { params: { slugId: string } }) {
   }
 
   return (
-    <main className="flex flex-col items-center justify-between gap-10 px-5">
-      <section className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 rounded-md">
+    <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
+      <section className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:rounded-md">
         <img
           alt={product.title}
           src={product.image}
@@ -33,8 +33,15 @@ export default function Product({ params }: { params: { slugId: string } }) {
             </div>
           )}
         </div>
-        <BuyBox />
-        <p>{product.description}</p>
+        <div className="md:col-span-2 lg:col-span-1">
+          <BuyBox />
+        </div>
+        <div className="md:col-span-2">
+          <h3 className="text-xl mb-5">
+            O que você precisa saber sobre este produto
+          </h3>
+          <p className="text-base">{product.description}</p>
+        </div>
       </section>
     </main>
   );
