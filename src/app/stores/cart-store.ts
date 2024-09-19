@@ -1,25 +1,40 @@
 import { create } from "zustand";
 import { Product } from "../models/product";
 
-interface Props {
+export interface useCartStoreProps {
   state: {
     products: Product[];
   };
   actions: {
     add: (product: Product) => void;
+    reset: () => void;
   };
 }
 
-export const useCartStore = create<Props>(set => ({
-  state: {
-    products: [],
-  },
+const initialState = {
+  products: [],
+};
+
+const addProduct = (store: useCartStoreProps, product: Product) => {
+  if (store.state.products.includes(product)) {
+    return store.state.products;
+  }
+
+  return [...store.state.products, product];
+};
+
+export const useCartStore = create<useCartStoreProps>(set => ({
+  state: { ...initialState },
   actions: {
     add: product =>
       set(store => ({
         state: {
-          products: [...store.state.products, product],
+          products: addProduct(store, product),
         },
+      })),
+    reset: () =>
+      set(() => ({
+        state: { ...initialState },
       })),
   },
 }));
