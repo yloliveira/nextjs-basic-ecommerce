@@ -1,12 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useFetchProduct } from "@/app/hooks/useFetchProduct";
 import Currency from "@/app/utils/currency";
 import BuyBox from "@/app/components/buyBox";
 
 export default function Product({ params }: { params: { slugId: string } }) {
+  const router = useRouter();
   const { product } = useFetchProduct(params.slugId);
+
+  const onClickBuyNow = () => {
+    if (!sessionStorage.getItem("session_id")) {
+      router.push("/login");
+    }
+  };
 
   if (!product) {
     return null;
@@ -34,7 +42,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
           )}
         </div>
         <div className="md:col-span-2 lg:col-span-1">
-          <BuyBox />
+          <BuyBox onClickBuyNow={onClickBuyNow} onClickAddToCart={() => {}} />
         </div>
         <div className="md:col-span-2">
           <h3 className="text-xl mb-5">
