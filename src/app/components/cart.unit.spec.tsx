@@ -14,6 +14,10 @@ describe("components/Cart", () => {
     );
   });
 
+  it("should render a close button", async () => {
+    expect(screen.getByTestId("close")).toBeInTheDocument();
+  });
+
   it("should render a 'see more products' button", async () => {
     expect(screen.getByTestId("see-more-products")).toBeInTheDocument();
   });
