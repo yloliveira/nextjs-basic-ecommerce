@@ -2,9 +2,13 @@ import React from "react";
 
 type Props = {
   onClickSeeMoreProducts: () => void;
+  onClickCheckout: () => void;
 };
 
-export default function Cart({ onClickSeeMoreProducts }: Props) {
+export default function Cart({
+  onClickSeeMoreProducts,
+  onClickCheckout,
+}: Props) {
   return (
     <div className="" data-testid="cart-modal">
       <button
@@ -17,7 +21,7 @@ export default function Cart({ onClickSeeMoreProducts }: Props) {
       <button
         data-testid="checkout"
         className="w-full h-12 rounded-md font-semibold text-base text-blue-500 bg-blue-50"
-        onClick={() => {}}
+        onClick={() => onClickCheckout()}
       >
         Finalizar a compra
       </button>
