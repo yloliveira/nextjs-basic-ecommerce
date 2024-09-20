@@ -28,6 +28,10 @@ describe("components/Cart", () => {
     expect(screen.getByTestId("checkout")).toBeInTheDocument();
   });
 
+  it("should have a absolute css class", () => {
+    expect(screen.getByTestId("cart-modal")).toHaveClass("absolute");
+  });
+
   it("should call props.onClickSeeMoreProducts()", () => {
     const [seeMoreProductsButton] = screen.getAllByRole("button");
     fireEvent.click(seeMoreProductsButton);
