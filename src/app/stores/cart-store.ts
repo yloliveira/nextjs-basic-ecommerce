@@ -4,6 +4,7 @@ import { Product } from "../models/product";
 
 export type Add = (product: Product) => void;
 export type Remove = (product: Product) => void;
+export type RemoveAll = () => void;
 
 export interface useCartStoreProps {
   state: {
@@ -12,6 +13,7 @@ export interface useCartStoreProps {
   actions: {
     add: Add;
     remove: Remove;
+    removeAll: RemoveAll;
     reset: () => void;
   };
 }
@@ -44,6 +46,11 @@ export const useCartStore = create<useCartStoreProps>()(
           if (PRODUCT_FOUND) {
             state.products.splice(productIndex, 1);
           }
+        });
+      },
+      removeAll() {
+        set(({ state }) => {
+          state.products = [];
         });
       },
       reset() {
