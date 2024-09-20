@@ -2,10 +2,16 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import Cart from "./cart";
 
 const onClickSeeMoreProducts = jest.fn();
+const onClickCheckout = jest.fn();
 
 describe("components/Cart", () => {
   beforeEach(() => {
-    render(<Cart onClickSeeMoreProducts={onClickSeeMoreProducts} />);
+    render(
+      <Cart
+        onClickSeeMoreProducts={onClickSeeMoreProducts}
+        onClickCheckout={onClickCheckout}
+      />
+    );
   });
 
   it("should render a 'see more products' button", async () => {
@@ -20,5 +26,11 @@ describe("components/Cart", () => {
     const [seeMoreProductsButton] = screen.getAllByRole("button");
     fireEvent.click(seeMoreProductsButton);
     expect(onClickSeeMoreProducts).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call props.onClickCheckout()", () => {
+    const [_, checkoutButton] = screen.getAllByRole("button");
+    fireEvent.click(checkoutButton);
+    expect(onClickCheckout).toHaveBeenCalledTimes(1);
   });
 });
