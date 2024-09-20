@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { Product } from "../models/product";
 
+export type Add = (product: Product) => void;
+
 export interface useCartStoreProps {
   state: {
     products: Product[];
   };
   actions: {
-    add: (product: Product) => void;
+    add: Add;
     reset: () => void;
   };
 }
