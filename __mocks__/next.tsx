@@ -10,3 +10,10 @@ jest.mock("next/image", () => ({
       ImgHTMLAttributes<HTMLImageElement>
   ) => <img {...props} />,
 }));
+
+export const nextNavigationPushMock = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: nextNavigationPushMock,
+  }),
+}));
