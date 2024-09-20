@@ -12,7 +12,7 @@ export default function Cart({
   onClickClose,
 }: Props) {
   return (
-    <div className="" data-testid="cart-modal">
+    <div className="absolute" data-testid="cart-modal">
       <div
         data-testid="close"
         className="cursor:pointer"
