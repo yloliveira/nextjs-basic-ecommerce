@@ -1,12 +1,16 @@
 import React from "react";
 
-export default function Cart() {
+type Props = {
+  onClickSeeMoreProducts: () => void;
+};
+
+export default function Cart({ onClickSeeMoreProducts }: Props) {
   return (
     <div className="" data-testid="cart-modal">
       <button
         data-testid="see-more-products"
         className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base"
-        onClick={() => {}}
+        onClick={() => onClickSeeMoreProducts()}
       >
         Ver mais produtos
       </button>
