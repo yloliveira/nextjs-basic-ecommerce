@@ -3,15 +3,21 @@ import React from "react";
 type Props = {
   onClickSeeMoreProducts: () => void;
   onClickCheckout: () => void;
+  onClickClose: () => void;
 };
 
 export default function Cart({
   onClickSeeMoreProducts,
   onClickCheckout,
+  onClickClose,
 }: Props) {
   return (
     <div className="" data-testid="cart-modal">
-      <div data-testid="close" className="cursor:pointer" onClick={() => {}}>
+      <div
+        data-testid="close"
+        className="cursor:pointer"
+        onClick={() => onClickClose()}
+      >
         X
       </div>
       <button
