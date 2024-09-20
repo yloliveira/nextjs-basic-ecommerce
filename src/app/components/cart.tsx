@@ -11,6 +11,9 @@ export default function Cart({
 }: Props) {
   return (
     <div className="" data-testid="cart-modal">
+      <div data-testid="close" className="cursor:pointer" onClick={() => {}}>
+        X
+      </div>
       <button
         data-testid="see-more-products"
         className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base"
