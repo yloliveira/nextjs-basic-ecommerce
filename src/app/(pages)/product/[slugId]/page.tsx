@@ -3,12 +3,18 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useFetchProduct } from "@/app/hooks/useFetchProduct";
+import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
 import BuyBox from "@/app/components/buyBox";
 
 export default function Product({ params }: { params: { slugId: string } }) {
   const router = useRouter();
   const { product } = useFetchProduct(params.slugId);
+  const add = useCartStore(state => state.actions.add);
+
+  if (!product) {
+    return null;
+  }
 
   const onClickBuyNow = () => {
     if (!sessionStorage.getItem("session_id")) {
@@ -18,9 +24,9 @@ export default function Product({ params }: { params: { slugId: string } }) {
     }
   };
 
-  if (!product) {
-    return null;
-  }
+  const onClickAddToCart = () => {
+    add(product);
+  };
 
   return (
     <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
@@ -44,7 +50,10 @@ export default function Product({ params }: { params: { slugId: string } }) {
           )}
         </div>
         <div className="md:col-span-2 lg:col-span-1">
-          <BuyBox onClickBuyNow={onClickBuyNow} onClickAddToCart={() => {}} />
+          <BuyBox
+            onClickBuyNow={onClickBuyNow}
+            onClickAddToCart={onClickAddToCart}
+          />
         </div>
         <div className="md:col-span-2">
           <h3 className="text-xl mb-5">
