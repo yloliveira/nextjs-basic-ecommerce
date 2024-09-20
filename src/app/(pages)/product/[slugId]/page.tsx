@@ -13,6 +13,8 @@ export default function Product({ params }: { params: { slugId: string } }) {
   const onClickBuyNow = () => {
     if (!sessionStorage.getItem("session_id")) {
       router.push("/login");
+    } else {
+      router.push("/checkout");
     }
   };
 
