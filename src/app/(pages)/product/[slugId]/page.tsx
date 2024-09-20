@@ -6,6 +6,7 @@ import { useFetchProduct } from "@/app/hooks/useFetchProduct";
 import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
 import BuyBox from "@/app/components/buyBox";
+import Cart from "@/app/components/cart";
 
 export default function Product({ params }: { params: { slugId: string } }) {
   const router = useRouter();
@@ -28,8 +29,17 @@ export default function Product({ params }: { params: { slugId: string } }) {
     add(product);
   };
 
+  const onClickClose = () => {};
+  const onClickSeeMoreProducts = () => {};
+  const onClickCheckout = () => {};
+
   return (
     <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
+      <Cart
+        onClickClose={onClickClose}
+        onClickSeeMoreProducts={onClickSeeMoreProducts}
+        onClickCheckout={onClickCheckout}
+      />
       <section className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:rounded-md">
         <img
           alt={product.title}
