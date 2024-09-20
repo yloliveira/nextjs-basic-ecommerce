@@ -3,6 +3,7 @@ import Cart from "./cart";
 
 const onClickSeeMoreProducts = jest.fn();
 const onClickCheckout = jest.fn();
+const onClickClose = jest.fn();
 
 describe("components/Cart", () => {
   beforeEach(() => {
@@ -10,6 +11,7 @@ describe("components/Cart", () => {
       <Cart
         onClickSeeMoreProducts={onClickSeeMoreProducts}
         onClickCheckout={onClickCheckout}
+        onClickClose={onClickClose}
       />
     );
   });
@@ -36,5 +38,11 @@ describe("components/Cart", () => {
     const [_, checkoutButton] = screen.getAllByRole("button");
     fireEvent.click(checkoutButton);
     expect(onClickCheckout).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call props.onClickClose()", () => {
+    const closeButton = screen.getByTestId("close");
+    fireEvent.click(closeButton);
+    expect(onClickClose).toHaveBeenCalledTimes(1);
   });
 });
