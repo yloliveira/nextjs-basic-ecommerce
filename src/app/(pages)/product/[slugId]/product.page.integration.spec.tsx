@@ -39,8 +39,32 @@ describe("pages/Product", () => {
 
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("buy-now"));
-      expect(nextNavigationPushMock).toHaveBeenCalledTimes(0);
       expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/login");
+    });
+  });
+
+  it("should call router.push('/checkout'), when BuyNowButton is clicked, if there's session_id into the sessionStorage", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    sessionStorage.setItem("session_id", "valid_session_id");
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("buy-now"));
+      expect(nextNavigationPushMock).toHaveBeenCalledTimes(1);
+      expect(nextNavigationPushMock).toHaveBeenCalledWith("/checkout");
+    });
+  });
+
+  it("should not call router.push('/checkout'), when BuyNowButton is clicked, if there's no session_id into the sessionStorage", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    sessionStorage.setItem("session_id", "");
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("buy-now"));
+      expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/checkout");
     });
   });
 });
