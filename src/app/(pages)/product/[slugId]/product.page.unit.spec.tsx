@@ -128,4 +128,12 @@ describe("pages/Product", () => {
       expect(screen.getByTestId("buy-box")).toBeInTheDocument();
     });
   });
+
+  it("should render the Cart component", async () => {
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("cart-modal")).toBeInTheDocument();
+    });
+  });
 });
