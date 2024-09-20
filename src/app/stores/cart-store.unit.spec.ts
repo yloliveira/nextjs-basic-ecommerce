@@ -2,16 +2,18 @@ import { renderHook, act } from "@testing-library/react";
 import { Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
 import { Product } from "@/app/models/product";
-import { useCartStore, useCartStoreProps, Add } from "./cart-store";
+import { useCartStore, useCartStoreProps, Add, Remove } from "./cart-store";
 
 describe("stores/cart-store", () => {
   let server: Server;
   let result: { current: useCartStoreProps };
   let add: Add;
+  let remove: Remove;
 
   beforeEach(() => {
     result = renderHook(() => useCartStore()).result;
     add = result.current.actions.add;
+    remove = result.current.actions.remove;
     server = makeServer();
   });
 
@@ -46,6 +48,19 @@ describe("stores/cart-store", () => {
 
     act(() => add(product.attrs as Product));
     act(() => add(product.attrs as Product));
+
+    expect(result.current.state.products).toHaveLength(1);
+  });
+
+  it("should remove a product from the list", async () => {
+    const [product1, product2] = server.createList("product", 2);
+
+    act(() => add(product1.attrs as Product));
+    act(() => add(product2.attrs as Product));
+
+    expect(result.current.state.products).toHaveLength(2);
+
+    act(() => remove(product2.attrs as Product));
 
     expect(result.current.state.products).toHaveLength(1);
   });
