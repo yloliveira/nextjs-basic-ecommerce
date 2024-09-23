@@ -114,4 +114,14 @@ describe("pages/Product", () => {
       expect(result.current.state.open).toBe(false);
     });
   });
+
+  it("should call router.push('/checkout'), when CheckoutButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("checkout"));
+      expect(nextNavigationPushMock).toHaveBeenCalledWith("/checkout");
+    });
+  });
 });
