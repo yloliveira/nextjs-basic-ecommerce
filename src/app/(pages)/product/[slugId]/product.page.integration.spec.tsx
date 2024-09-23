@@ -101,4 +101,17 @@ describe("pages/Product", () => {
       expect(result.current.state.open).toBe(true);
     });
   });
+
+  it("should toggle the cartModal open state when CloseButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(result.current.state.open).toBe(false);
+      fireEvent.click(screen.getByTestId("add-to-cart"));
+      expect(result.current.state.open).toBe(true);
+      fireEvent.click(screen.getByTestId("close"));
+      expect(result.current.state.open).toBe(false);
+    });
+  });
 });
