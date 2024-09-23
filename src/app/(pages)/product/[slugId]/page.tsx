@@ -35,7 +35,9 @@ export default function Product({ params }: { params: { slugId: string } }) {
     toggle();
   };
 
-  const onClickSeeMoreProducts = () => {};
+  const onClickSeeMoreProducts = () => {
+    toggle();
+  };
 
   const onClickCheckout = () => {
     router.push("/checkout");
