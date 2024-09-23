@@ -115,6 +115,19 @@ describe("pages/Product", () => {
     });
   });
 
+  it("should toggle the cartModal open state when SeeMoreProductsButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(result.current.state.open).toBe(false);
+      fireEvent.click(screen.getByTestId("add-to-cart"));
+      expect(result.current.state.open).toBe(true);
+      fireEvent.click(screen.getByTestId("see-more-products"));
+      expect(result.current.state.open).toBe(false);
+    });
+  });
+
   it("should call router.push('/checkout'), when CheckoutButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
