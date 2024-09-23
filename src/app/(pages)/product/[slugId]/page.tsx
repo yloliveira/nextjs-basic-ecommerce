@@ -31,7 +31,10 @@ export default function Product({ params }: { params: { slugId: string } }) {
     toggle();
   };
 
-  const onClickClose = () => {};
+  const onClickClose = () => {
+    toggle();
+  };
+
   const onClickSeeMoreProducts = () => {};
   const onClickCheckout = () => {};
 
