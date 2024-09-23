@@ -36,7 +36,10 @@ export default function Product({ params }: { params: { slugId: string } }) {
   };
 
   const onClickSeeMoreProducts = () => {};
-  const onClickCheckout = () => {};
+
+  const onClickCheckout = () => {
+    router.push("/checkout");
+  };
 
   return (
     <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
