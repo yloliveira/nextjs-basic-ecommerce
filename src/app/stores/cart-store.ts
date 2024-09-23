@@ -2,15 +2,18 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { Product } from "../models/product";
 
+export type Toggle = () => void;
 export type Add = (product: Product) => void;
 export type Remove = (product: Product) => void;
 export type RemoveAll = () => void;
 
 export interface useCartStoreProps {
   state: {
+    open: boolean;
     products: Product[];
   };
   actions: {
+    toggle: Toggle;
     add: Add;
     remove: Remove;
     removeAll: RemoveAll;
@@ -19,6 +22,7 @@ export interface useCartStoreProps {
 }
 
 const initialState = {
+  open: false,
   products: [],
 };
 
@@ -26,6 +30,11 @@ export const useCartStore = create<useCartStoreProps>()(
   immer(set => ({
     state: { ...initialState },
     actions: {
+      toggle() {
+        set(({ state }) => {
+          state.open = !state.open;
+        });
+      },
       add(product) {
         set(({ state }) => {
           const productIndex = state.products.findIndex(
