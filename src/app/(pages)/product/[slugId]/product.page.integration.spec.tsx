@@ -106,6 +106,17 @@ describe("pages/Product", () => {
     });
   });
 
+  it("should call cart-store.toggle() when AddToCartButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      const spy = jest.spyOn(result.current.actions, "toggle");
+      fireEvent.click(screen.getByTestId("add-to-cart"));
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   it("should toggle the cartModal open state when AddToCartButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
