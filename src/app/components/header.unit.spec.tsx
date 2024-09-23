@@ -23,6 +23,11 @@ describe("components/Header", () => {
     jest.clearAllMocks();
   });
 
+  it("should render a logo", () => {
+    render(<Header />);
+    expect(screen.getByTestId("logo")).toBeInTheDocument();
+  });
+
   it("should render Search form component", () => {
     render(<Header />);
     expect(screen.getByRole("form")).toBeInTheDocument();
