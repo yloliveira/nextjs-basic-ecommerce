@@ -5,6 +5,7 @@ import { Product } from "@/app/models/product";
 import {
   useCartStore,
   useCartStoreProps,
+  Toggle,
   Add,
   Remove,
   RemoveAll,
@@ -13,12 +14,14 @@ import {
 describe("stores/cart-store", () => {
   let server: Server;
   let result: { current: useCartStoreProps };
+  let toggle: Toggle;
   let add: Add;
   let remove: Remove;
   let removeAll: RemoveAll;
 
   beforeEach(() => {
     result = renderHook(() => useCartStore()).result;
+    toggle = result.current.actions.toggle;
     add = result.current.actions.add;
     remove = result.current.actions.remove;
     removeAll = result.current.actions.removeAll;
@@ -84,5 +87,17 @@ describe("stores/cart-store", () => {
     act(() => removeAll());
 
     expect(result.current.state.products).toHaveLength(0);
+  });
+
+  it("should toggle open state", async () => {
+    expect(result.current.state.open).toBe(false);
+
+    act(() => toggle());
+
+    expect(result.current.state.open).toBe(true);
+
+    act(() => toggle());
+
+    expect(result.current.state.open).toBe(false);
   });
 });
