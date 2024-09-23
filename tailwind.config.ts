@@ -15,6 +15,7 @@ const config: Config = {
       },
       colors: {
         brandPrimary: "#ffe600",
+        success: "#00A650",
       },
     },
   },
