@@ -1,14 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Cart from "./cart";
+import CartModal from "./cart-modal";
 
 const onClickSeeMoreProducts = jest.fn();
 const onClickCheckout = jest.fn();
 const onClickClose = jest.fn();
 
-describe("components/Cart", () => {
+describe("components/CartModal", () => {
   beforeEach(() => {
     render(
-      <Cart
+      <CartModal
         onClickSeeMoreProducts={onClickSeeMoreProducts}
         onClickCheckout={onClickCheckout}
         onClickClose={onClickClose}

@@ -6,7 +6,7 @@ type Props = {
   onClickClose: () => void;
 };
 
-export default function Cart({
+export default function CartModal({
   onClickSeeMoreProducts,
   onClickCheckout,
   onClickClose,

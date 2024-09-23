@@ -129,7 +129,7 @@ describe("pages/Product", () => {
     });
   });
 
-  it("should render the Cart component", async () => {
+  it("should render the CartModal component", async () => {
     render(<Product params={{ slugId: product.slugId }} />);
 
     await waitFor(() => {

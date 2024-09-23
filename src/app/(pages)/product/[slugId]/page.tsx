@@ -6,7 +6,7 @@ import { useFetchProduct } from "@/app/hooks/useFetchProduct";
 import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
 import BuyBox from "@/app/components/buyBox";
-import Cart from "@/app/components/cart";
+import CartModal from "@/app/components/cart-modal";
 
 export default function Product({ params }: { params: { slugId: string } }) {
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
 
   return (
     <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
-      <Cart
+      <CartModal
         onClickClose={onClickClose}
         onClickSeeMoreProducts={onClickSeeMoreProducts}
         onClickCheckout={onClickCheckout}
