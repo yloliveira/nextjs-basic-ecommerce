@@ -9,6 +9,7 @@ describe("components/CartModal", () => {
   beforeEach(() => {
     render(
       <CartModal
+        isOpen
         onClickSeeMoreProducts={onClickSeeMoreProducts}
         onClickCheckout={onClickCheckout}
         onClickClose={onClickClose}
@@ -30,6 +31,10 @@ describe("components/CartModal", () => {
 
   it("should have a absolute css class", () => {
     expect(screen.getByTestId("cart-modal")).toHaveClass("absolute");
+  });
+
+  it("should display the content if props.isOpen is true", () => {
+    expect(screen.getByTestId("cart-modal")).toBeInTheDocument();
   });
 
   it("should call props.onClickSeeMoreProducts()", () => {
