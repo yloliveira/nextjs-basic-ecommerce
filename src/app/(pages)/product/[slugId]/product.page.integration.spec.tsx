@@ -127,6 +127,18 @@ describe("pages/Product", () => {
     });
   });
 
+  it("should not call router.push('/checkout'), when CheckoutButton is clicked, if there's no session_id into the sessionStorage", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    sessionStorage.setItem("session_id", "");
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByTestId("checkout"));
+      expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/checkout");
+    });
+  });
+
   it("should call router.push('/') when SeeMoreProductsButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
