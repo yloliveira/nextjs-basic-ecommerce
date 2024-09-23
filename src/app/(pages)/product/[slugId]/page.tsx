@@ -40,7 +40,10 @@ export default function Product({ params }: { params: { slugId: string } }) {
   };
 
   const onClickCheckout = () => {
-    router.push("/checkout");
+    if (!sessionStorage.getItem("session_id")) {
+    } else {
+      router.push("/checkout");
+    }
   };
 
   return (
