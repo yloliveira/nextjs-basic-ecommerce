@@ -32,9 +32,9 @@ describe("components/CartModal", () => {
     expect(screen.getByTestId("checkout")).toBeInTheDocument();
   });
 
-  it("should have a absolute css class", () => {
+  it("should have a fixed css class", () => {
     makeSut();
-    expect(screen.getByTestId("cart-modal")).toHaveClass("absolute");
+    expect(screen.getByTestId("cart-modal")).toHaveClass("fixed");
   });
 
   it("should not have a hidden css class if props.isOpen is true", () => {

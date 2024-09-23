@@ -17,7 +17,7 @@ export default function CartModal({
     <div
       className={`${
         !isOpen && "hidden"
-      } absolute w-screen h-screen top-0 right-0 left-0 z-50 bg-opacity-50 bg-black flex justify-end`}
+      } fixed w-screen h-screen top-0 right-0 left-0 z-50 bg-opacity-50 bg-black flex justify-end`}
       data-testid="cart-modal"
     >
       <div className="w-full h-full max-w-md bg-white flex flex-col justify-between items-end p-5">
