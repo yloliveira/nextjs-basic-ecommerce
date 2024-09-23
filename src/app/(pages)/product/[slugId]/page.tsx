@@ -11,7 +11,7 @@ import CartModal from "@/app/components/cart-modal";
 export default function Product({ params }: { params: { slugId: string } }) {
   const router = useRouter();
   const { product } = useFetchProduct(params.slugId);
-  const add = useCartStore(state => state.actions.add);
+  const { toggle, add } = useCartStore(state => state.actions);
   const modalOpen = useCartStore(state => state.state.open);
 
   if (!product) {
@@ -28,6 +28,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
 
   const onClickAddToCart = () => {
     add(product);
+    toggle();
   };
 
   const onClickClose = () => {};
