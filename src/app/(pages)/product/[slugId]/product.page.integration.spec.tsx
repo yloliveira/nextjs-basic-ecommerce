@@ -7,11 +7,14 @@ import {
   act,
 } from "@testing-library/react";
 import { Server } from "miragejs";
+import { setAutoFreeze } from "immer";
 import { makeServer } from "@/mock-api/miragejs/server";
 import { nextNavigationPushMock } from "@/../__mocks__/next";
 import { Product as ProductModel } from "@/app/models/product";
 import Product from "./page";
 import { useCartStore, useCartStoreProps } from "@/app/stores/cart-store";
+
+setAutoFreeze(false);
 
 describe("pages/Product", () => {
   let server: Server;
@@ -76,6 +79,18 @@ describe("pages/Product", () => {
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("buy-now"));
       expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/checkout");
+    });
+  });
+
+  it("should call cart-store.add() with the product data when AddToCartButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      const spy = jest.spyOn(result.current.actions, "add");
+      fireEvent.click(screen.getByTestId("add-to-cart"));
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(product);
     });
   });
 
