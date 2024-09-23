@@ -22,6 +22,11 @@ describe("components/CartModal", () => {
     expect(screen.getByTestId("close")).toBeInTheDocument();
   });
 
+  it("should render a success message", async () => {
+    makeSut();
+    expect(screen.getByTestId("success-message")).toBeInTheDocument();
+  });
+
   it("should render a 'see more products' button", async () => {
     makeSut();
     expect(screen.getByTestId("see-more-products")).toBeInTheDocument();
