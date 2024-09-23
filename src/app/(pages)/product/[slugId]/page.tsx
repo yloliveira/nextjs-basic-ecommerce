@@ -12,6 +12,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
   const router = useRouter();
   const { product } = useFetchProduct(params.slugId);
   const add = useCartStore(state => state.actions.add);
+  const modalOpen = useCartStore(state => state.state.open);
 
   if (!product) {
     return null;
@@ -36,6 +37,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
   return (
     <main className="flex flex-col items-center justify-between gap-10 sm:px-5">
       <CartModal
+        isOpen={modalOpen}
         onClickClose={onClickClose}
         onClickSeeMoreProducts={onClickSeeMoreProducts}
         onClickCheckout={onClickCheckout}

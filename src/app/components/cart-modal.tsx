@@ -1,19 +1,23 @@
 import React from "react";
 
 type Props = {
+  isOpen: boolean;
   onClickSeeMoreProducts: () => void;
   onClickCheckout: () => void;
   onClickClose: () => void;
 };
 
 export default function CartModal({
+  isOpen,
   onClickSeeMoreProducts,
   onClickCheckout,
   onClickClose,
 }: Props) {
   return (
     <div
-      className="absolute w-screen h-screen top-0 right-0 left-0 z-50 bg-opacity-50 bg-black flex justify-end"
+      className={`${
+        !isOpen && "hidden"
+      } absolute w-screen h-screen top-0 right-0 left-0 z-50 bg-opacity-50 bg-black flex justify-end`}
       data-testid="cart-modal"
     >
       <div className="w-full h-full max-w-md bg-white flex flex-col justify-between items-end p-5">
