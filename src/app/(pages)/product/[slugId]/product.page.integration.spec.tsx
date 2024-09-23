@@ -4,6 +4,7 @@ import {
   screen,
   waitFor,
   renderHook,
+  act,
 } from "@testing-library/react";
 import { Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
@@ -25,6 +26,7 @@ describe("pages/Product", () => {
   afterEach(() => {
     server.shutdown();
     jest.clearAllMocks();
+    act(() => result.current.actions.reset());
   });
 
   it("should call router.push('/login'), when BuyNowButton is clicked, if there's no session_id into the sessionStorage", async () => {
@@ -86,6 +88,17 @@ describe("pages/Product", () => {
       fireEvent.click(screen.getByTestId("add-to-cart"));
       expect(result.current.state.products).toHaveLength(1);
       expect(result.current.state.products[0]).toEqual(product);
+    });
+  });
+
+  it("should toggle the cartModal open state when AddToCartButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      expect(result.current.state.open).toBe(false);
+      fireEvent.click(screen.getByTestId("add-to-cart"));
+      expect(result.current.state.open).toBe(true);
     });
   });
 });
