@@ -115,9 +115,11 @@ describe("pages/Product", () => {
     });
   });
 
-  it("should call router.push('/checkout') when CheckoutButton  is clicked", async () => {
+  it("should call router.push('/checkout'), when CheckoutButton is clicked, if there's session_id into the sessionStorage", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
+
+    sessionStorage.setItem("session_id", "valid_session_id");
 
     await waitFor(() => {
       fireEvent.click(screen.getByTestId("checkout"));
