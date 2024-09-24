@@ -63,6 +63,20 @@ describe("stores/cart-store", () => {
     expect(result.current.state.items).toHaveLength(1);
   });
 
+  it("should increase the quantity of the item if the product is already in the list", async () => {
+    const product = server.create("product");
+
+    expect(result.current.state.items).toHaveLength(0);
+
+    act(() => add(product.attrs as Product));
+    expect(result.current.state.items).toHaveLength(1);
+    expect(result.current.state.items[0].quantity).toBe(1);
+
+    act(() => add(product.attrs as Product));
+    expect(result.current.state.items).toHaveLength(1);
+    expect(result.current.state.items[0].quantity).toBe(2);
+  });
+
   it("should remove a product from the list", async () => {
     const [product1, product2] = server.createList("product", 2);
 
