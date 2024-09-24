@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import BuyBox from "./buyBox";
+import userEvent from "@testing-library/user-event";
 
 const onClickBuyNow = jest.fn();
 const onClickAddToCart = jest.fn();
+const onChangeQuantity = jest.fn();
 
 describe("components/BuyBox", () => {
   beforeEach(() => {
@@ -10,6 +12,7 @@ describe("components/BuyBox", () => {
       <BuyBox
         onClickBuyNow={onClickBuyNow}
         onClickAddToCart={onClickAddToCart}
+        onChangeQuantity={onChangeQuantity}
       />
     );
   });
@@ -37,5 +40,13 @@ describe("components/BuyBox", () => {
     const [_, addToCartButton] = screen.getAllByRole("button");
     fireEvent.click(addToCartButton);
     expect(onClickAddToCart).toHaveBeenCalledTimes(1);
+  });
+
+  it("should call props.onChangeQuantity() with the chosen quantity", async () => {
+    const quantitySelect = screen.getByRole("combobox");
+    await userEvent.selectOptions(quantitySelect, "2");
+
+    expect(onChangeQuantity).toHaveBeenCalledTimes(1);
+    expect(onChangeQuantity).toHaveBeenCalledWith(2);
   });
 });
