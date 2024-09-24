@@ -41,6 +41,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
   };
 
   const onClickSeeMoreProducts = () => {
+    toggle();
     router.push("/");
   };
 
