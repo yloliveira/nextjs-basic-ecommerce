@@ -33,14 +33,21 @@ export default function Cart() {
       >
         <div
           data-testid="products-total"
-          className="flex justify-between text-sm"
+          className="flex justify-between text-sm  font-light"
         >
           <span>{`Produtos(${cartItems.length})`} </span>
           <span>{Currency.format(productsTotal)}</span>
         </div>
         <div
+          data-testid="shipping"
+          className="flex justify-between text-sm font-light"
+        >
+          <span>frete </span>
+          <span>{Currency.format(shipping)}</span>
+        </div>
+        <div
           data-testid="total"
-          className="flex justify-between font-semibold text-lg"
+          className="flex justify-between font-semibold text-lg  font-light"
         >
           <span>Total </span>
           <span>{Currency.format(total)}</span>
