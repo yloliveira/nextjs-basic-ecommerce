@@ -77,17 +77,34 @@ describe("stores/cart-store", () => {
     expect(result.current.state.items[0].quantity).toBe(2);
   });
 
-  it("should remove a product from the list", async () => {
+  it("should remove a product from the list if the quantity is 1", async () => {
     const [product1, product2] = server.createList("product", 2);
 
     act(() => add(product1.attrs as Product));
     act(() => add(product2.attrs as Product));
 
     expect(result.current.state.items).toHaveLength(2);
+    expect(result.current.state.items[1].quantity).toBe(1);
 
     act(() => remove(product2.attrs as Product));
 
     expect(result.current.state.items).toHaveLength(1);
+  });
+
+  it("should decrease the quantity of the item if the quantity is greater than 1", async () => {
+    const [product1, product2] = server.createList("product", 2);
+
+    act(() => add(product1.attrs as Product));
+    act(() => add(product2.attrs as Product));
+    act(() => add(product2.attrs as Product));
+
+    expect(result.current.state.items).toHaveLength(2);
+    expect(result.current.state.items[1].quantity).toBe(2);
+
+    act(() => remove(product2.attrs as Product));
+
+    expect(result.current.state.items).toHaveLength(2);
+    expect(result.current.state.items[1].quantity).toBe(1);
   });
 
   it("should remove all items from the list", async () => {
