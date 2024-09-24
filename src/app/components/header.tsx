@@ -1,9 +1,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Search from "@/app/components/search";
+import { useCartStore } from "@/app/stores/cart-store";
 
 export default function Header() {
   const router = useRouter();
+  const products = useCartStore(state => state.state.products);
 
   const onSubmitSearchForm = ({ text }: { text: string }) => {
     router.push(`/search&term=${text}`);
@@ -55,7 +57,7 @@ export default function Header() {
           <a
             href="/cart"
             role="link"
-            className="ml-5"
+            className="ml-5 relative"
             aria-describedby="carrinho"
           >
             <span hidden id="carrinho">
@@ -78,6 +80,12 @@ export default function Header() {
                 d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
               />
             </svg>
+            <div
+              data-testid="cart-badge"
+              className="absolute top-0 right-0 rounded bg-red-600 text-[9px] flex items-center justify-center w-min px-0.5 text-white font-semibold"
+            >
+              {products.length}
+            </div>
           </a>
         </nav>
       </div>
