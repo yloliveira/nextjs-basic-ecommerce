@@ -6,6 +6,7 @@ import {
   renderHook,
   act,
 } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Server } from "miragejs";
 import { setAutoFreeze } from "immer";
 import { makeServer } from "@/mock-api/miragejs/server";
@@ -82,15 +83,16 @@ describe("pages/Product", () => {
     });
   });
 
-  it("should call cart-store.add() with the product data when AddToCartButton is clicked", async () => {
+  it("should call cart-store.add() with the product data and quantity when AddToCartButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
 
     await waitFor(() => {
       const spy = jest.spyOn(result.current.actions, "add");
       fireEvent.click(screen.getByTestId("add-to-cart"));
+      userEvent.selectOptions(screen.getByRole("combobox"), "2");
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith({ product, quantity: 1 });
+      expect(spy).toHaveBeenCalledWith({ product, quantity: 2 });
     });
   });
 
