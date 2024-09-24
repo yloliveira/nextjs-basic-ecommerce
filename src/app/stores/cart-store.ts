@@ -48,6 +48,8 @@ export const useCartStore = create<useCartStoreProps>()(
           const PRODUCT_NOT_ADDED = productIndex < 0;
           if (PRODUCT_NOT_ADDED) {
             state.items.push({ product, quantity: 1 });
+          } else {
+            state.items[productIndex].quantity += 1;
           }
         });
       },
