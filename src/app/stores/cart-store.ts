@@ -91,6 +91,7 @@ export const useCartStore = create<useCartStoreProps>()(
     {
       name: "cart-store",
       storage: createJSONStorage(() => sessionStorage),
+      partialize: ({ state }) => ({ state }),
     }
   )
 );
