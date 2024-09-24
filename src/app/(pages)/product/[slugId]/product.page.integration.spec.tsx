@@ -215,4 +215,15 @@ describe("pages/Product", () => {
       expect(nextNavigationPushMock).toHaveBeenCalledWith("/");
     });
   });
+
+  it("should call cart-store.toggle() when SeeMoreProductsButton is clicked", async () => {
+    product = server.create("product").attrs as ProductModel;
+    render(<Product params={{ slugId: product.slugId }} />);
+
+    await waitFor(() => {
+      const spy = jest.spyOn(result.current.actions, "toggle");
+      fireEvent.click(screen.getByTestId("see-more-products"));
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+  });
 });
