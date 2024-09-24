@@ -1,7 +1,16 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  renderHook,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
+import { useCartStore } from "@/app/stores/cart-store";
+import { Product } from "@/app/models/product";
 import Header from "./header";
 
 const pushMock = jest.fn();
@@ -51,6 +60,16 @@ describe("components/Header", () => {
     expect(
       screen.getByRole("link", { description: /carrinho/i })
     ).toHaveAttribute("href", "/cart");
+  });
+
+  it("should show a badge in the cart icon with the quantity of products inside the cart if the quantity is greater than 0", () => {
+    render(<Header />);
+    const product = server.create("product").attrs as Product;
+    const { result } = renderHook(() => useCartStore());
+    act(() => result.current.actions.add(product));
+
+    expect(screen.getByTestId("cart-badge")).toBeInTheDocument();
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("1");
   });
 
   it("should call router.push() with the url containing the correct term for search", async () => {
