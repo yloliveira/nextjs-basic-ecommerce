@@ -7,6 +7,10 @@ export default function Header() {
   const router = useRouter();
   const cartItems = useCartStore(state => state.state.items);
 
+  const onClickLogo = () => {
+    router.push("/");
+  };
+
   const onSubmitSearchForm = ({ text }: { text: string }) => {
     router.push(`/search&term=${text}`);
   };
@@ -16,9 +20,13 @@ export default function Header() {
       className="w-full h-28 bg-brandPrimary py-2 px-5 sm:mb-10 flex justify-center items-center"
       data-testid="header"
     >
-      <div className="w-full max-w-7xl h-full grid grid-cols-7">
+      <div className="w-full max-w-7xl h-full grid grid-cols-7 ">
         <div className="flex items-start col-span-2 lg:col-span-2">
-          <div className="flex items-center w-52" data-testid="logo">
+          <div
+            className="flex items-center w-52 cursor-pointer"
+            data-testid="logo"
+            onClick={onClickLogo}
+          >
             <div className="text-3xl h-10 w-16 border border-b-4 border-brandSecondary rounded-[50%_/_50%] flex item-center justify-center bg-yellow-400 text-white mr-1">
               <svg
                 data-name="Layer 1"
