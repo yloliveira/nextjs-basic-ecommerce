@@ -46,10 +46,21 @@ describe("stores/cart-store", () => {
     expect(result.current.state.items).toHaveLength(0);
 
     for (const product of products) {
-      act(() => add(product.attrs as Product));
+      act(() => add({ product: product.attrs as Product, quantity: 1 }));
     }
 
     expect(result.current.state.items).toHaveLength(2);
+  });
+
+  it("should add an item with its corret quantity", async () => {
+    const product = server.create("product").attrs as Product;
+
+    expect(result.current.state.items).toHaveLength(0);
+
+    act(() => add({ product, quantity: 2 }));
+
+    expect(result.current.state.items).toHaveLength(1);
+    expect(result.current.state.items[0].quantity).toBe(2);
   });
 
   it("should not add the same product twice", async () => {
@@ -57,8 +68,8 @@ describe("stores/cart-store", () => {
 
     expect(result.current.state.items).toHaveLength(0);
 
-    act(() => add(product.attrs as Product));
-    act(() => add(product.attrs as Product));
+    act(() => add({ product: product.attrs as Product, quantity: 1 }));
+    act(() => add({ product: product.attrs as Product, quantity: 1 }));
 
     expect(result.current.state.items).toHaveLength(1);
   });
@@ -68,11 +79,11 @@ describe("stores/cart-store", () => {
 
     expect(result.current.state.items).toHaveLength(0);
 
-    act(() => add(product.attrs as Product));
+    act(() => add({ product: product.attrs as Product, quantity: 1 }));
     expect(result.current.state.items).toHaveLength(1);
     expect(result.current.state.items[0].quantity).toBe(1);
 
-    act(() => add(product.attrs as Product));
+    act(() => add({ product: product.attrs as Product, quantity: 1 }));
     expect(result.current.state.items).toHaveLength(1);
     expect(result.current.state.items[0].quantity).toBe(2);
   });
@@ -80,8 +91,8 @@ describe("stores/cart-store", () => {
   it("should remove a product from the list if the quantity is 1", async () => {
     const [product1, product2] = server.createList("product", 2);
 
-    act(() => add(product1.attrs as Product));
-    act(() => add(product2.attrs as Product));
+    act(() => add({ product: product1.attrs as Product, quantity: 1 }));
+    act(() => add({ product: product2.attrs as Product, quantity: 1 }));
 
     expect(result.current.state.items).toHaveLength(2);
     expect(result.current.state.items[1].quantity).toBe(1);
@@ -94,9 +105,9 @@ describe("stores/cart-store", () => {
   it("should decrease the quantity of the item if the quantity is greater than 1", async () => {
     const [product1, product2] = server.createList("product", 2);
 
-    act(() => add(product1.attrs as Product));
-    act(() => add(product2.attrs as Product));
-    act(() => add(product2.attrs as Product));
+    act(() => add({ product: product1.attrs as Product, quantity: 1 }));
+    act(() => add({ product: product2.attrs as Product, quantity: 1 }));
+    act(() => add({ product: product2.attrs as Product, quantity: 1 }));
 
     expect(result.current.state.items).toHaveLength(2);
     expect(result.current.state.items[1].quantity).toBe(2);
@@ -110,8 +121,8 @@ describe("stores/cart-store", () => {
   it("should remove all items from the list", async () => {
     const [product1, product2] = server.createList("product", 2);
 
-    act(() => add(product1.attrs as Product));
-    act(() => add(product2.attrs as Product));
+    act(() => add({ product: product1.attrs as Product, quantity: 1 }));
+    act(() => add({ product: product2.attrs as Product, quantity: 1 }));
 
     expect(result.current.state.items).toHaveLength(2);
 
