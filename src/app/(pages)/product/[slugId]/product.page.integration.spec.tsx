@@ -90,7 +90,7 @@ describe("pages/Product", () => {
       const spy = jest.spyOn(result.current.actions, "add");
       fireEvent.click(screen.getByTestId("add-to-cart"));
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith(product);
+      expect(spy).toHaveBeenCalledWith({ product, quantity: 1 });
     });
   });
 

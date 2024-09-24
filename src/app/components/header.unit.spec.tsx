@@ -68,7 +68,7 @@ describe("components/Header", () => {
   it("should show a badge in the cart icon with the quantity of products inside the cart if the quantity is greater than 0", () => {
     render(<Header />);
     const product = server.create("product").attrs as Product;
-    act(() => result.current.actions.add(product));
+    act(() => result.current.actions.add({ product, quantity: 1 }));
 
     expect(screen.getByTestId("cart-badge")).toBeInTheDocument();
     expect(screen.getByTestId("cart-badge")).toHaveTextContent("1");

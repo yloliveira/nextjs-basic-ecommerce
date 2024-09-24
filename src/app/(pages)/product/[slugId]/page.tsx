@@ -27,7 +27,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
   };
 
   const onClickAddToCart = () => {
-    add(product);
+    add({ product, quantity: 1 });
     toggle();
   };
 

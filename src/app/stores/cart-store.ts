@@ -3,7 +3,13 @@ import { immer } from "zustand/middleware/immer";
 import { Product } from "../models/product";
 
 export type Toggle = () => void;
-export type Add = (product: Product) => void;
+export type Add = ({
+  product,
+  quantity,
+}: {
+  product: Product;
+  quantity: number;
+}) => void;
 export type Remove = (product: Product) => void;
 export type RemoveAll = () => void;
 
@@ -40,16 +46,16 @@ export const useCartStore = create<useCartStoreProps>()(
           state.open = !state.open;
         });
       },
-      add(product) {
+      add({ product, quantity }) {
         set(({ state }) => {
           const productIndex = state.items.findIndex(
             (item: CartItem) => item.product.slugId === product.slugId
           );
           const PRODUCT_NOT_ADDED = productIndex < 0;
           if (PRODUCT_NOT_ADDED) {
-            state.items.push({ product, quantity: 1 });
+            state.items.push({ product, quantity });
           } else {
-            state.items[productIndex].quantity += 1;
+            state.items[productIndex].quantity += quantity;
           }
         });
       },
