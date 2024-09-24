@@ -13,6 +13,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
   const { product } = useFetchProduct(params.slugId);
   const { toggle, add } = useCartStore(state => state.actions);
   const modalOpen = useCartStore(state => state.state.open);
+  const [quantity, setQuantity] = React.useState(1);
 
   if (!product) {
     return null;
@@ -27,12 +28,16 @@ export default function Product({ params }: { params: { slugId: string } }) {
   };
 
   const onClickAddToCart = () => {
-    add({ product, quantity: 1 });
+    add({ product, quantity });
     toggle();
   };
 
   const onClickClose = () => {
     toggle();
+  };
+
+  const onChangeQuantity = (quantity: number) => {
+    setQuantity(quantity);
   };
 
   const onClickSeeMoreProducts = () => {
@@ -78,6 +83,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
           <BuyBox
             onClickBuyNow={onClickBuyNow}
             onClickAddToCart={onClickAddToCart}
+            onChangeQuantity={onChangeQuantity}
           />
         </div>
         <div className="md:col-span-2">
