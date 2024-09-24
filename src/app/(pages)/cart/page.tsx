@@ -8,6 +8,10 @@ export default function Cart() {
         data-testid="cart-items-list"
         className="bg-white p-5 shadow col-span-7 lg:col-span-5 rounded-md mx-5 lg:mx-0"
       ></section>
+      <section
+        data-testid="purchase-summary"
+        className="bg-white p-5 shadow col-span-7 lg:col-span-2 lg:rounded-md"
+      ></section>
     </main>
   );
 }
