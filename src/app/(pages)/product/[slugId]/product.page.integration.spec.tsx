@@ -87,10 +87,10 @@ describe("pages/Product", () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
 
-    await waitFor(() => {
+    await waitFor(async () => {
       const spy = jest.spyOn(result.current.actions, "add");
+      await userEvent.selectOptions(screen.getByRole("combobox"), "2");
       fireEvent.click(screen.getByTestId("add-to-cart"));
-      userEvent.selectOptions(screen.getByRole("combobox"), "2");
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith({ product, quantity: 2 });
     });
@@ -98,13 +98,17 @@ describe("pages/Product", () => {
 
   it("should add the product into the cart when AddToCartButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
-    render(<Product params={{ slugId: product.slugId }} />);
+    const { rerender } = render(
+      <Product params={{ slugId: product.slugId }} />
+    );
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(result.current.state.items).toHaveLength(0);
+      await userEvent.selectOptions(screen.getByRole("combobox"), "2");
       fireEvent.click(screen.getByTestId("add-to-cart"));
       expect(result.current.state.items).toHaveLength(1);
       expect(result.current.state.items[0].product).toEqual(product);
+      expect(result.current.state.items[0].quantity).toEqual(2);
     });
   });
 
