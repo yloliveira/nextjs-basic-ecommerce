@@ -1,7 +1,8 @@
 "use client";
+import React from "react";
 import { Product } from "@/app/models/product";
 import { useCartStore } from "@/app/stores/cart-store";
-import React from "react";
+import Currency from "@/app/utils/currency";
 
 function CartItem({ item }: { item: { product: Product; quantity: number } }) {
   return <div data-testid="cart-item"></div>;
@@ -9,6 +10,10 @@ function CartItem({ item }: { item: { product: Product; quantity: number } }) {
 
 export default function Cart() {
   const cartItems = useCartStore(state => state.state.items);
+  const total = cartItems.reduce((acc, cur) => {
+    acc += cur.quantity * cur.product.price.originalAmount;
+    return acc;
+  }, 0);
 
   return (
     <main className="w-full max-w-7xl grid grid-cols-7 mx-auto mt-5 md:mt-0 gap-5 lg:px-5">
@@ -22,8 +27,15 @@ export default function Cart() {
       </section>
       <section
         data-testid="purchase-summary"
-        className="bg-white p-5 shadow col-span-7 lg:col-span-2 lg:rounded-md"
+        className="bg-white p-5 shadow col-span-7 lg:col-span-2 lg:rounded-md flex flex-col gap-3"
       >
+        <div
+          data-testid="total"
+          className="flex justify-between font-semibold text-lg"
+        >
+          <span>Total </span>
+          <span>{Currency.format(total)}</span>
+        </div>
         <button
           className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base mb-2"
           onClick={() => {}}
