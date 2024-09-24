@@ -96,4 +96,15 @@ describe("components/Header", () => {
       expect(pushMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  it("should call router.push('/') when logo is clicked", async () => {
+    render(<Header />);
+
+    fireEvent.click(screen.getByTestId("logo"));
+
+    await waitFor(() => {
+      expect(pushMock).toHaveBeenCalledWith("/");
+      expect(pushMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });
