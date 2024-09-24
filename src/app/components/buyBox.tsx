@@ -3,21 +3,33 @@ import React from "react";
 type Props = {
   onClickBuyNow: () => void;
   onClickAddToCart: () => void;
+  onChangeQuantity: (quantity: number) => void;
 };
 
-export default function BuyBox({ onClickBuyNow, onClickAddToCart }: Props) {
+export default function BuyBox({
+  onClickBuyNow,
+  onClickAddToCart,
+  onChangeQuantity,
+}: Props) {
   return (
     <div
       data-testid="buy-box"
       className="sm:border rounded-lg sm:border-gray-200 flex flex-col justify-between sm:p-5 gap-2"
     >
-      <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
+      <div>
+        <label htmlFor="quantity-select">Quantidade: </label>
+        <select
+          className="bg-transparent font-semibold"
+          onChange={event => onChangeQuantity(Number(event.target.value))}
+          id="quantity-select"
+        >
+          <option value="1">1 unidade</option>
+          <option value="2">2 unidades</option>
+          <option value="3">3 unidades</option>
+          <option value="4">4 unidades</option>
+          <option value="5">5 unidades</option>
+        </select>
+      </div>
       <div>
         <button
           data-testid="buy-now"
