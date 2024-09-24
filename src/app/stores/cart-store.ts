@@ -56,9 +56,9 @@ export const useCartStore = create<useCartStoreProps>()(
             const PRODUCT_NOT_ADDED = productIndex < 0;
             if (PRODUCT_NOT_ADDED) {
               state.items.push({ product, quantity });
-            } else {
-              state.items[productIndex].quantity += quantity;
+              return;
             }
+            state.items[productIndex].quantity += quantity;
           });
         },
         remove(product) {
@@ -70,9 +70,9 @@ export const useCartStore = create<useCartStoreProps>()(
             if (PRODUCT_FOUND) {
               if (state.items[productIndex].quantity > 1) {
                 state.items[productIndex].quantity -= 1;
-              } else {
-                state.items.splice(productIndex, 1);
+                return;
               }
+              state.items.splice(productIndex, 1);
             }
           });
         },
