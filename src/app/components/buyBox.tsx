@@ -19,7 +19,7 @@ export default function BuyBox({
       <div>
         <label htmlFor="quantity-select">Quantidade: </label>
         <select
-          className="bg-transparent font-semibold"
+          className="bg-transparent font-semibold mb-5"
           onChange={event => onChangeQuantity(Number(event.target.value))}
           id="quantity-select"
         >
@@ -33,7 +33,7 @@ export default function BuyBox({
       <div>
         <button
           data-testid="buy-now"
-          className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base"
+          className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base mb-2"
           onClick={() => onClickBuyNow()}
         >
           Comprar agora
