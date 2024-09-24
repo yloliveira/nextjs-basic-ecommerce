@@ -60,7 +60,11 @@ export const useCartStore = create<useCartStoreProps>()(
           );
           const PRODUCT_FOUND = productIndex >= 0;
           if (PRODUCT_FOUND) {
-            state.items.splice(productIndex, 1);
+            if (state.items[productIndex].quantity > 1) {
+              state.items[productIndex].quantity -= 1;
+            } else {
+              state.items.splice(productIndex, 1);
+            }
           }
         });
       },
