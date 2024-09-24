@@ -80,12 +80,14 @@ export default function Header() {
                 d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
               />
             </svg>
-            <div
-              data-testid="cart-badge"
-              className="absolute top-0 right-0 rounded bg-red-600 text-[9px] flex items-center justify-center w-min px-0.5 text-white font-semibold"
-            >
-              {products.length}
-            </div>
+            {products.length > 0 && (
+              <div
+                data-testid="cart-badge"
+                className="absolute top-0 right-0 rounded bg-red-600 text-[9px] flex items-center justify-center w-min px-0.5 text-white font-semibold min-w-3.5"
+              >
+                {products.length}
+              </div>
+            )}
           </a>
         </nav>
       </div>
