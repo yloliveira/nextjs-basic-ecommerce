@@ -76,6 +76,20 @@ describe("pages/Cart", () => {
       );
     });
 
+    it("should render the price of the shipping", () => {
+      const product1 = server.create("product").attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product: product1, quantity: 1 }));
+      render(<Cart />);
+
+      const textToMatch = String("Frete R\\$ 0,00");
+
+      expect(screen.getByTestId("shipping")).toBeInTheDocument();
+      expect(screen.getByTestId("shipping")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
+
     it("should render the total of the purchase", () => {
       const productPrice = {
         originalAmount: 100,
