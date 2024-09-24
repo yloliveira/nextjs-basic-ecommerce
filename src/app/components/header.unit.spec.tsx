@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import { Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
-import { useCartStore } from "@/app/stores/cart-store";
+import { useCartStore, useCartStoreProps } from "@/app/stores/cart-store";
 import { Product } from "@/app/models/product";
 import Header from "./header";
 
@@ -22,14 +22,17 @@ jest.mock("next/navigation", () => ({
 
 describe("components/Header", () => {
   let server: Server;
+  let result: { current: useCartStoreProps };
 
   beforeEach(() => {
     server = makeServer({ environment: "test" });
+    result = renderHook(() => useCartStore()).result;
   });
 
   afterEach(() => {
     server.shutdown();
     jest.clearAllMocks();
+    act(() => result.current.actions.reset());
   });
 
   it("should render a logo", () => {
@@ -65,11 +68,15 @@ describe("components/Header", () => {
   it("should show a badge in the cart icon with the quantity of products inside the cart if the quantity is greater than 0", () => {
     render(<Header />);
     const product = server.create("product").attrs as Product;
-    const { result } = renderHook(() => useCartStore());
     act(() => result.current.actions.add(product));
 
     expect(screen.getByTestId("cart-badge")).toBeInTheDocument();
     expect(screen.getByTestId("cart-badge")).toHaveTextContent("1");
+  });
+
+  it("should not show a badge in the cart icon if the quantity is lower than 1", () => {
+    render(<Header />);
+    expect(screen.queryByTestId("cart-badge")).not.toBeInTheDocument();
   });
 
   it("should call router.push() with the url containing the correct term for search", async () => {
