@@ -48,5 +48,32 @@ describe("pages/Cart", () => {
         screen.getByRole("button", { name: /continuar a compra/i })
       ).toBeInTheDocument();
     });
+
+    it("should render the total of the purchase", () => {
+      const productPrice = {
+        originalAmount: 100,
+        numberOfInstallmentsWithoutTaxes: 1,
+        installmentValue: 100,
+      };
+
+      const product1 = server.create("product", {
+        price: productPrice,
+      } as object).attrs as ProductModel;
+      const product2 = server.create("product", {
+        price: productPrice,
+      } as object).attrs as ProductModel;
+
+      const { add } = result.current.actions;
+      act(() => add({ product: product1, quantity: 1 }));
+      act(() => add({ product: product2, quantity: 2 }));
+      render(<Cart />);
+
+      const textToMatch = String("Total R\\$ 300,00");
+
+      expect(screen.getByTestId("total")).toBeInTheDocument();
+      expect(screen.getByTestId("total")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
   });
 });
