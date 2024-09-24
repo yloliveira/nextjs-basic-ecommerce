@@ -40,4 +40,13 @@ describe("pages/Cart", () => {
     render(<Cart />);
     expect(screen.getByTestId("purchase-summary")).toBeInTheDocument();
   });
+
+  describe("PurchaseSummary", () => {
+    it("should render a ProceedToCheckout button", () => {
+      render(<Cart />);
+      expect(
+        screen.getByRole("button", { name: /continuar a compra/i })
+      ).toBeInTheDocument();
+    });
+  });
 });
