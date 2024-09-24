@@ -23,7 +23,14 @@ export default function Cart() {
       <section
         data-testid="purchase-summary"
         className="bg-white p-5 shadow col-span-7 lg:col-span-2 lg:rounded-md"
-      ></section>
+      >
+        <button
+          className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base mb-2"
+          onClick={() => {}}
+        >
+          Continuar a compra
+        </button>
+      </section>
     </main>
   );
 }
