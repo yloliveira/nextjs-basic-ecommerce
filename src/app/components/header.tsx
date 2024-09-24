@@ -16,9 +16,9 @@ export default function Header() {
       className="w-full h-28 bg-brandPrimary py-2 px-5 sm:mb-10 flex justify-center items-center"
       data-testid="header"
     >
-      <div className="w-full max-w-7xl h-full flex flex-col justify-between">
-        <div className="flex">
-          <div className="flex items-center" data-testid="logo">
+      <div className="w-full max-w-7xl h-full grid grid-cols-7">
+        <div className="flex items-start col-span-2 lg:col-span-2">
+          <div className="flex items-center w-52" data-testid="logo">
             <div className="text-3xl h-10 w-16 border border-b-4 border-brandSecondary rounded-[50%_/_50%] flex item-center justify-center bg-yellow-400 text-white mr-1">
               <svg
                 data-name="Layer 1"
@@ -34,62 +34,68 @@ export default function Header() {
               mercado preso
             </span>
           </div>
+        </div>
+
+        <div className="col-span-5 lg:col-span-3">
           <Search onSubmit={onSubmitSearchForm} />
         </div>
-        <nav className="w-full h-8 flex justify-end items-center">
-          <ul className="flex gap-5 text-sm">
-            <li>
-              <a href="/registration" role="link">
-                Crie sua conta
-              </a>
-            </li>
-            <li>
-              <a href="/login" role="link">
-                Entre
-              </a>
-            </li>
-            <li>
-              <a href="/purchases" role="link">
-                Compras
-              </a>
-            </li>
-          </ul>
-          <a
-            href="/cart"
-            role="link"
-            className="ml-5 relative"
-            aria-describedby="carrinho"
-          >
-            <span hidden id="carrinho">
-              Carrinho
-            </span>
-            <svg
-              className="w-[25px] h-[25px] text-black"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
+
+        <div className="flex items-end col-span-7">
+          <nav className="w-full h-8 flex justify-end items-center  ">
+            <ul className="flex gap-5 text-sm">
+              <li>
+                <a href="/registration" role="link">
+                  Crie sua conta
+                </a>
+              </li>
+              <li>
+                <a href="/login" role="link">
+                  Entre
+                </a>
+              </li>
+              <li>
+                <a href="/purchases" role="link">
+                  Compras
+                </a>
+              </li>
+            </ul>
+            <a
+              href="/cart"
+              role="link"
+              className="ml-5 relative"
+              aria-describedby="carrinho"
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1"
-                d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
-              />
-            </svg>
-            {cartItems.length > 0 && (
-              <div
-                data-testid="cart-badge"
-                className="absolute top-0 right-0 rounded bg-red-600 text-[9px] flex items-center justify-center w-min px-0.5 text-white font-semibold min-w-3.5"
+              <span hidden id="carrinho">
+                Carrinho
+              </span>
+              <svg
+                className="w-[25px] h-[25px] text-black"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
               >
-                {cartItems.length}
-              </div>
-            )}
-          </a>
-        </nav>
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1"
+                  d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"
+                />
+              </svg>
+              {cartItems.length > 0 && (
+                <div
+                  data-testid="cart-badge"
+                  className="absolute top-0 right-0 rounded bg-red-600 text-[9px] flex items-center justify-center w-min px-0.5 text-white font-semibold min-w-3.5"
+                >
+                  {cartItems.length}
+                </div>
+              )}
+            </a>
+          </nav>
+        </div>
       </div>
     </header>
   );
