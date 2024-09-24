@@ -7,10 +7,15 @@ export type Add = (product: Product) => void;
 export type Remove = (product: Product) => void;
 export type RemoveAll = () => void;
 
+type CartItem = {
+  product: Product;
+  quantity: number;
+};
+
 export interface useCartStoreProps {
   state: {
     open: boolean;
-    products: Product[];
+    items: CartItem[];
   };
   actions: {
     toggle: Toggle;
@@ -23,7 +28,7 @@ export interface useCartStoreProps {
 
 const initialState = {
   open: false,
-  products: [],
+  items: [],
 };
 
 export const useCartStore = create<useCartStoreProps>()(
@@ -37,29 +42,29 @@ export const useCartStore = create<useCartStoreProps>()(
       },
       add(product) {
         set(({ state }) => {
-          const productIndex = state.products.findIndex(
-            (item: Product) => item.slugId === product.slugId
+          const productIndex = state.items.findIndex(
+            (item: CartItem) => item.product.slugId === product.slugId
           );
           const PRODUCT_NOT_ADDED = productIndex < 0;
           if (PRODUCT_NOT_ADDED) {
-            state.products.push(product);
+            state.items.push({ product, quantity: 1 });
           }
         });
       },
       remove(product) {
         set(({ state }) => {
-          const productIndex = state.products.findIndex(
-            (item: Product) => item.slugId === product.slugId
+          const productIndex = state.items.findIndex(
+            (item: CartItem) => item.product.slugId === product.slugId
           );
           const PRODUCT_FOUND = productIndex >= 0;
           if (PRODUCT_FOUND) {
-            state.products.splice(productIndex, 1);
+            state.items.splice(productIndex, 1);
           }
         });
       },
       removeAll() {
         set(({ state }) => {
-          state.products = [];
+          state.items = [];
         });
       },
       reset() {

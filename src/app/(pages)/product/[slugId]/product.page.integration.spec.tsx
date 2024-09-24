@@ -99,10 +99,10 @@ describe("pages/Product", () => {
     render(<Product params={{ slugId: product.slugId }} />);
 
     await waitFor(() => {
-      expect(result.current.state.products).toHaveLength(0);
+      expect(result.current.state.items).toHaveLength(0);
       fireEvent.click(screen.getByTestId("add-to-cart"));
-      expect(result.current.state.products).toHaveLength(1);
-      expect(result.current.state.products[0]).toEqual(product);
+      expect(result.current.state.items).toHaveLength(1);
+      expect(result.current.state.items[0].product).toEqual(product);
     });
   });
 

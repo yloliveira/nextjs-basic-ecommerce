@@ -35,32 +35,32 @@ describe("stores/cart-store", () => {
     });
   });
 
-  it("should return an empty array for products on initial state", () => {
-    expect(Array.isArray(result.current.state.products)).toBe(true);
-    expect(result.current.state.products).toHaveLength(0);
+  it("should return an empty array for items on initial state", () => {
+    expect(Array.isArray(result.current.state.items)).toBe(true);
+    expect(result.current.state.items).toHaveLength(0);
   });
 
-  it("should add 2 products to the list", async () => {
+  it("should add 2 items to the list", async () => {
     const products = server.createList("product", 2);
 
-    expect(result.current.state.products).toHaveLength(0);
+    expect(result.current.state.items).toHaveLength(0);
 
     for (const product of products) {
       act(() => add(product.attrs as Product));
     }
 
-    expect(result.current.state.products).toHaveLength(2);
+    expect(result.current.state.items).toHaveLength(2);
   });
 
   it("should not add the same product twice", async () => {
     const product = server.create("product");
 
-    expect(result.current.state.products).toHaveLength(0);
+    expect(result.current.state.items).toHaveLength(0);
 
     act(() => add(product.attrs as Product));
     act(() => add(product.attrs as Product));
 
-    expect(result.current.state.products).toHaveLength(1);
+    expect(result.current.state.items).toHaveLength(1);
   });
 
   it("should remove a product from the list", async () => {
@@ -69,24 +69,24 @@ describe("stores/cart-store", () => {
     act(() => add(product1.attrs as Product));
     act(() => add(product2.attrs as Product));
 
-    expect(result.current.state.products).toHaveLength(2);
+    expect(result.current.state.items).toHaveLength(2);
 
     act(() => remove(product2.attrs as Product));
 
-    expect(result.current.state.products).toHaveLength(1);
+    expect(result.current.state.items).toHaveLength(1);
   });
 
-  it("should remove all products from the list", async () => {
+  it("should remove all items from the list", async () => {
     const [product1, product2] = server.createList("product", 2);
 
     act(() => add(product1.attrs as Product));
     act(() => add(product2.attrs as Product));
 
-    expect(result.current.state.products).toHaveLength(2);
+    expect(result.current.state.items).toHaveLength(2);
 
     act(() => removeAll());
 
-    expect(result.current.state.products).toHaveLength(0);
+    expect(result.current.state.items).toHaveLength(0);
   });
 
   it("should toggle open state", async () => {
