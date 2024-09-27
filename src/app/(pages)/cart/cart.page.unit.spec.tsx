@@ -63,6 +63,27 @@ describe("pages/Cart", () => {
         screen.getByText(new RegExp(product.title, "i"))
       ).toBeInTheDocument();
     });
+
+    it("should render the total price of the item", () => {
+      const productPrice = {
+        originalAmount: 100,
+        numberOfInstallmentsWithoutTaxes: 1,
+        installmentValue: 100,
+      };
+      const product = server.create("product", {
+        price: productPrice,
+      } as object).attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product, quantity: 2 }));
+      render(<Cart />);
+
+      const textToMatch = String("R\\$ 200,00");
+
+      expect(screen.getByTestId("item-total")).toBeInTheDocument();
+      expect(screen.getByTestId("item-total")).toHaveTextContent(
+        new RegExp(textToMatch, "i")
+      );
+    });
   });
 
   describe("PurchaseSummary", () => {
