@@ -84,6 +84,17 @@ describe("pages/Cart", () => {
         new RegExp(textToMatch, "i")
       );
     });
+
+    it("should render a remove item button", () => {
+      const product = server.create("product").attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product, quantity: 1 }));
+      render(<Cart />);
+
+      expect(
+        screen.getByRole("button", { name: /excluir/i })
+      ).toBeInTheDocument();
+    });
   });
 
   describe("PurchaseSummary", () => {
