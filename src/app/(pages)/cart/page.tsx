@@ -9,12 +9,14 @@ type CartItemProps = {
   item: { product: Product; quantity: number };
   onClickRemove: (product: Product) => void;
   onClickDecrease: (product: Product) => void;
+  onClickIncrease: (product: Product) => void;
 };
 
 export function CartItem({
   item,
   onClickRemove,
   onClickDecrease,
+  onClickIncrease,
 }: CartItemProps) {
   return (
     <div
@@ -73,7 +75,10 @@ export function CartItem({
             <span data-testid="item-quantity" className="text-sm">
               {item.quantity}
             </span>
-            <button data-testid="increase-quantity" onClick={() => {}}>
+            <button
+              data-testid="increase-quantity"
+              onClick={() => onClickIncrease(item.product)}
+            >
               <svg
                 className="w-[16px] h-[16px] text-blue-500"
                 aria-hidden="true"
@@ -115,6 +120,8 @@ export default function Cart() {
 
   const onClickDecrease = () => {};
 
+  const onClickIncrease = () => {};
+
   return (
     <main className="w-full max-w-7xl grid grid-cols-7 mx-auto mt-5 md:mt-0 gap-5 lg:px-5">
       <section
@@ -130,6 +137,7 @@ export default function Cart() {
             key={item.product.slugId}
             onClickRemove={onClickRemove}
             onClickDecrease={onClickDecrease}
+            onClickIncrease={onClickIncrease}
           />
         ))}
       </section>
