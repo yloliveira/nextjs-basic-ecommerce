@@ -12,6 +12,7 @@ import { useCartStore, useCartStoreProps } from "@/app/stores/cart-store";
 import Cart, { CartItem } from "./page";
 
 const onClickRemove = jest.fn();
+const onClickDecrease = jest.fn();
 
 describe("pages/Cart", () => {
   let server: Server;
@@ -56,6 +57,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -70,6 +72,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -91,6 +94,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -108,6 +112,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -122,6 +127,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -137,6 +143,7 @@ describe("pages/Cart", () => {
         <CartItem
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
         />
       );
 
@@ -145,6 +152,23 @@ describe("pages/Cart", () => {
 
       expect(onClickRemove).toHaveBeenCalledTimes(1);
       expect(onClickRemove).toHaveBeenCalledWith(product);
+    });
+
+    it("should call props.onClickDecrease() with the product data", () => {
+      const product = server.create("product").attrs as ProductModel;
+      render(
+        <CartItem
+          item={{ product, quantity: 1 }}
+          onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
+        />
+      );
+
+      const decreaseButton = screen.getByTestId("decrease-quantity");
+      fireEvent.click(decreaseButton);
+
+      expect(onClickDecrease).toHaveBeenCalledTimes(1);
+      expect(onClickDecrease).toHaveBeenCalledWith(product);
     });
   });
 
