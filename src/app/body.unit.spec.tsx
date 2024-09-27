@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Body } from "./layout";
+import Body from "./body";
 
 const pushMock = jest.fn();
 jest.mock("next/navigation", () => ({
@@ -8,7 +8,7 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
-describe("app/Layout", () => {
+describe("app/Body", () => {
   it("should render the Header component", async () => {
     render(
       <Body>
