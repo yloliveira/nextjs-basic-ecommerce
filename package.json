@@ -2,6 +2,11 @@
   "name": "nextjs-basic-ecommerce",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Yan Oliveira",
+    "email": "contato@yloliveira.dev",
+    "url": "https://yloliveira.dev"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
