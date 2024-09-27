@@ -8,9 +8,14 @@ import Currency from "@/app/utils/currency";
 type CartItemProps = {
   item: { product: Product; quantity: number };
   onClickRemove: (product: Product) => void;
+  onClickDecrease: (product: Product) => void;
 };
 
-export function CartItem({ item, onClickRemove }: CartItemProps) {
+export function CartItem({
+  item,
+  onClickRemove,
+  onClickDecrease,
+}: CartItemProps) {
   return (
     <div
       data-testid="cart-item"
@@ -43,7 +48,7 @@ export function CartItem({ item, onClickRemove }: CartItemProps) {
             className="border rounded-md border-gray-200 px-3 h-[32px] min-w-[70px] max-w-[90px] sm:max-w-[120px] flex gap-6 items-center justify-center"
           >
             <button
-              onClick={() => {}}
+              onClick={() => onClickDecrease(item.product)}
               data-testid="decrease-quantity"
               className="text-blue-500 font-bold text-3xl"
             >
@@ -108,6 +113,8 @@ export default function Cart() {
 
   const onClickRemove = () => {};
 
+  const onClickDecrease = () => {};
+
   return (
     <main className="w-full max-w-7xl grid grid-cols-7 mx-auto mt-5 md:mt-0 gap-5 lg:px-5">
       <section
@@ -122,6 +129,7 @@ export default function Cart() {
             item={item}
             key={item.product.slugId}
             onClickRemove={onClickRemove}
+            onClickDecrease={onClickDecrease}
           />
         ))}
       </section>
