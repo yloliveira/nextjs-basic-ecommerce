@@ -41,6 +41,19 @@ describe("pages/Cart", () => {
     expect(screen.getByTestId("purchase-summary")).toBeInTheDocument();
   });
 
+  describe("CartItem", () => {
+    it("should render the props.item.product.image", () => {
+      const product = server.create("product").attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product, quantity: 1 }));
+      render(<Cart />);
+
+      expect(screen.getByRole("img")).toBeInTheDocument();
+      expect(screen.getByRole("img")).toHaveProperty("src", product.image);
+      expect(screen.getByRole("img")).toHaveProperty("alt", product.title);
+    });
+  });
+
   describe("PurchaseSummary", () => {
     it("should render a ProceedToCheckout button", () => {
       render(<Cart />);
