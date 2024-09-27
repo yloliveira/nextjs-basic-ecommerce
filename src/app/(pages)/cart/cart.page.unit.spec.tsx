@@ -13,6 +13,7 @@ import Cart, { CartItem } from "./page";
 
 const onClickRemove = jest.fn();
 const onClickDecrease = jest.fn();
+const onClickIncrease = jest.fn();
 
 describe("pages/Cart", () => {
   let server: Server;
@@ -58,6 +59,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -73,6 +75,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -95,6 +98,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -113,6 +117,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -128,6 +133,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -144,6 +150,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 2 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -161,6 +168,7 @@ describe("pages/Cart", () => {
           item={{ product, quantity: 1 }}
           onClickRemove={onClickRemove}
           onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
         />
       );
 
@@ -169,6 +177,24 @@ describe("pages/Cart", () => {
 
       expect(onClickDecrease).toHaveBeenCalledTimes(1);
       expect(onClickDecrease).toHaveBeenCalledWith(product);
+    });
+
+    it("should call props.onClickIncrease() with the product data", () => {
+      const product = server.create("product").attrs as ProductModel;
+      render(
+        <CartItem
+          item={{ product, quantity: 1 }}
+          onClickRemove={onClickRemove}
+          onClickDecrease={onClickDecrease}
+          onClickIncrease={onClickIncrease}
+        />
+      );
+
+      const increaseButton = screen.getByTestId("increase-quantity");
+      fireEvent.click(increaseButton);
+
+      expect(onClickIncrease).toHaveBeenCalledTimes(1);
+      expect(onClickIncrease).toHaveBeenCalledWith(product);
     });
   });
 
