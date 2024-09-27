@@ -1,9 +1,17 @@
-import { render, screen, renderHook, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  renderHook,
+  act,
+  fireEvent,
+} from "@testing-library/react";
 import { Server } from "miragejs";
 import { makeServer } from "@/mock-api/miragejs/server";
 import { Product as ProductModel } from "@/app/models/product";
 import { useCartStore, useCartStoreProps } from "@/app/stores/cart-store";
-import Cart from "./page";
+import Cart, { CartItem } from "./page";
+
+const onClickRemove = jest.fn();
 
 describe("pages/Cart", () => {
   let server: Server;
@@ -44,9 +52,12 @@ describe("pages/Cart", () => {
   describe("CartItem", () => {
     it("should render the props.item.product.image", () => {
       const product = server.create("product").attrs as ProductModel;
-      const { add } = result.current.actions;
-      act(() => add({ product, quantity: 1 }));
-      render(<Cart />);
+      render(
+        <CartItem
+          item={{ product, quantity: 1 }}
+          onClickRemove={onClickRemove}
+        />
+      );
 
       expect(screen.getByRole("img")).toBeInTheDocument();
       expect(screen.getByRole("img")).toHaveProperty("src", product.image);
@@ -55,9 +66,12 @@ describe("pages/Cart", () => {
 
     it("should render the props.item.product.title", () => {
       const product = server.create("product").attrs as ProductModel;
-      const { add } = result.current.actions;
-      act(() => add({ product, quantity: 1 }));
-      render(<Cart />);
+      render(
+        <CartItem
+          item={{ product, quantity: 1 }}
+          onClickRemove={onClickRemove}
+        />
+      );
 
       expect(
         screen.getByText(new RegExp(product.title, "i"))
@@ -73,9 +87,12 @@ describe("pages/Cart", () => {
       const product = server.create("product", {
         price: productPrice,
       } as object).attrs as ProductModel;
-      const { add } = result.current.actions;
-      act(() => add({ product, quantity: 2 }));
-      render(<Cart />);
+      render(
+        <CartItem
+          item={{ product, quantity: 2 }}
+          onClickRemove={onClickRemove}
+        />
+      );
 
       const textToMatch = String("R\\$ 200,00");
 
@@ -87,9 +104,12 @@ describe("pages/Cart", () => {
 
     it("should render a remove item button", () => {
       const product = server.create("product").attrs as ProductModel;
-      const { add } = result.current.actions;
-      act(() => add({ product, quantity: 1 }));
-      render(<Cart />);
+      render(
+        <CartItem
+          item={{ product, quantity: 1 }}
+          onClickRemove={onClickRemove}
+        />
+      );
 
       expect(
         screen.getByRole("button", { name: /excluir/i })
@@ -98,14 +118,33 @@ describe("pages/Cart", () => {
 
     it("should render a quantity stepper", () => {
       const product = server.create("product").attrs as ProductModel;
-      const { add } = result.current.actions;
-      act(() => add({ product, quantity: 2 }));
-      render(<Cart />);
+      render(
+        <CartItem
+          item={{ product, quantity: 2 }}
+          onClickRemove={onClickRemove}
+        />
+      );
 
       expect(screen.getByTestId("quantity-stepper")).toBeInTheDocument();
       expect(screen.getByTestId("item-quantity")).toHaveTextContent("2");
       expect(screen.getByTestId("decrease-quantity")).toBeInTheDocument();
       expect(screen.getByTestId("increase-quantity")).toBeInTheDocument();
+    });
+
+    it("should call props.onClickRemove() with the product data", () => {
+      const product = server.create("product").attrs as ProductModel;
+      render(
+        <CartItem
+          item={{ product, quantity: 2 }}
+          onClickRemove={onClickRemove}
+        />
+      );
+
+      const removeButton = screen.getByRole("button", { name: /excluir/i });
+      fireEvent.click(removeButton);
+
+      expect(onClickRemove).toHaveBeenCalledTimes(1);
+      expect(onClickRemove).toHaveBeenCalledWith(product);
     });
   });
 
