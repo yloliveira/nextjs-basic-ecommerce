@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import { Product } from "@/app/models/product";
@@ -5,7 +6,15 @@ import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
 
 function CartItem({ item }: { item: { product: Product; quantity: number } }) {
-  return <div data-testid="cart-item"></div>;
+  return (
+    <div data-testid="cart-item" className="flex">
+      <img
+        alt={item.product.title}
+        src={item.product.image}
+        className="w-full h-auto"
+      />
+    </div>
+  );
 }
 
 export default function Cart() {
