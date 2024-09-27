@@ -109,6 +109,7 @@ export function CartItem({
 
 export default function Cart() {
   const cartItems = useCartStore(state => state.state.items);
+  const { remove } = useCartStore(state => state.actions);
   const productsTotal = cartItems.reduce((acc, cur) => {
     acc += cur.quantity * cur.product.price.originalAmount;
     return acc;
@@ -116,7 +117,9 @@ export default function Cart() {
   const shipping = 0;
   const total = productsTotal + shipping;
 
-  const onClickRemove = () => {};
+  const onClickRemove = (product: Product) => {
+    remove(product);
+  };
 
   const onClickDecrease = () => {};
 
