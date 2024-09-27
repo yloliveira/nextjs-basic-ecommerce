@@ -13,7 +13,12 @@ function CartItem({ item }: { item: { product: Product; quantity: number } }) {
         src={item.product.image}
         className="w-16 h-16"
       />
-      <h3 className="text-base font-semibold">{item.product.title}</h3>
+      <div className="w-full flex justify-between items-center">
+        <h3 className="text-base font-semibold">{item.product.title}</h3>
+        <span data-testId="item-total" className="text-xl font-medium">
+          {Currency.format(item.product.price.originalAmount * item.quantity)}
+        </span>
+      </div>
     </div>
   );
 }
