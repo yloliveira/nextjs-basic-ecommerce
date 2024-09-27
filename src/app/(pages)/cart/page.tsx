@@ -5,7 +5,12 @@ import { Product } from "@/app/models/product";
 import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
 
-function CartItem({ item }: { item: { product: Product; quantity: number } }) {
+type CartItemProps = {
+  item: { product: Product; quantity: number };
+  onClickRemove: (product: Product) => void;
+};
+
+export function CartItem({ item, onClickRemove }: CartItemProps) {
   return (
     <div
       data-testid="cart-item"
@@ -23,7 +28,7 @@ function CartItem({ item }: { item: { product: Product; quantity: number } }) {
             {item.product.title}
           </h3>
           <button
-            onClick={() => {}}
+            onClick={() => onClickRemove(item.product)}
             className="font-semibold text-sm text-blue-500"
           >
             Excluir
@@ -101,6 +106,8 @@ export default function Cart() {
   const shipping = 0;
   const total = productsTotal + shipping;
 
+  const onClickRemove = () => {};
+
   return (
     <main className="w-full max-w-7xl grid grid-cols-7 mx-auto mt-5 md:mt-0 gap-5 lg:px-5">
       <section
@@ -111,7 +118,11 @@ export default function Cart() {
           Produtos
         </h1>
         {cartItems.map(item => (
-          <CartItem item={item} key={item.product.slugId} />
+          <CartItem
+            item={item}
+            key={item.product.slugId}
+            onClickRemove={onClickRemove}
+          />
         ))}
       </section>
       <section
