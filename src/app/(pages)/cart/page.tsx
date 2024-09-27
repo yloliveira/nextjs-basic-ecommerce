@@ -7,14 +7,22 @@ import Currency from "@/app/utils/currency";
 
 function CartItem({ item }: { item: { product: Product; quantity: number } }) {
   return (
-    <div data-testid="cart-item" className="flex">
+    <div data-testid="cart-item" className="flex gap-5">
       <img
         alt={item.product.title}
         src={item.product.image}
         className="w-16 h-16"
       />
       <div className="w-full flex justify-between items-center">
-        <h3 className="text-base font-semibold">{item.product.title}</h3>
+        <div className="h-full flex flex-col justify-between items-start">
+          <h3 className="text-base font-semibold">{item.product.title}</h3>
+          <button
+            onClick={() => {}}
+            className="font-semibold text-sm text-blue-500"
+          >
+            Excluir
+          </button>
+        </div>
         <span data-testId="item-total" className="text-xl font-medium">
           {Currency.format(item.product.price.originalAmount * item.quantity)}
         </span>
