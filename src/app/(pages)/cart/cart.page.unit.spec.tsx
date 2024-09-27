@@ -95,6 +95,18 @@ describe("pages/Cart", () => {
         screen.getByRole("button", { name: /excluir/i })
       ).toBeInTheDocument();
     });
+
+    it("should render a quantity stepper", () => {
+      const product = server.create("product").attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product, quantity: 2 }));
+      render(<Cart />);
+
+      expect(screen.getByTestId("quantity-stepper")).toBeInTheDocument();
+      expect(screen.getByTestId("item-quantity")).toHaveTextContent("2");
+      expect(screen.getByTestId("decrease-quantity")).toBeInTheDocument();
+      expect(screen.getByTestId("increase-quantity")).toBeInTheDocument();
+    });
   });
 
   describe("PurchaseSummary", () => {
