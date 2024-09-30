@@ -50,6 +50,7 @@ export default function CartItem({
               onClick={() => onClickDecrease(item.product)}
               data-testid="decrease-quantity"
               className="text-blue-500 font-bold text-3xl"
+              disabled={item.quantity === 1}
             >
               <svg
                 className="w-[16px] h-[16px] text-blue-500"
