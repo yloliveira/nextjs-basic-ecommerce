@@ -42,7 +42,7 @@ describe("pages/Cart", () => {
     });
   });
 
-  it("should decrease the item quantity when decreaseButton is clicked", async () => {
+  it("should decrease the item quantity by 1 when decreaseButton is clicked", async () => {
     const product = server.create("product").attrs as ProductModel;
     const { add } = result.current.actions;
     act(() => add({ product, quantity: 2 }));
@@ -54,6 +54,21 @@ describe("pages/Cart", () => {
       fireEvent.click(screen.getByTestId("decrease-quantity"));
 
       expect(result.current.state.items[0].quantity).toBe(1);
+    });
+  });
+
+  it("should increase the item quantity by 1 when increaseButton is clicked", async () => {
+    const product = server.create("product").attrs as ProductModel;
+    const { add } = result.current.actions;
+    act(() => add({ product, quantity: 1 }));
+    render(<Cart />);
+
+    await waitFor(async () => {
+      expect(result.current.state.items[0].quantity).toBe(1);
+
+      fireEvent.click(screen.getByTestId("increase-quantity"));
+
+      expect(result.current.state.items[0].quantity).toBe(2);
     });
   });
 });
