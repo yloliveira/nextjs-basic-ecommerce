@@ -7,7 +7,7 @@ import Currency from "@/app/utils/currency";
 
 type CartItemProps = {
   item: { product: Product; quantity: number };
-  onClickRemove: (product: Product) => void;
+  onClickRemove: (item: { product: Product; quantity: number }) => void;
   onClickDecrease: (product: Product) => void;
   onClickIncrease: (product: Product) => void;
 };
@@ -35,7 +35,7 @@ export function CartItem({
             {item.product.title}
           </h3>
           <button
-            onClick={() => onClickRemove(item.product)}
+            onClick={() => onClickRemove(item)}
             className="font-semibold text-sm text-blue-500"
           >
             Excluir
@@ -117,8 +117,8 @@ export default function Cart() {
   const shipping = 0;
   const total = productsTotal + shipping;
 
-  const onClickRemove = (product: Product) => {
-    remove(product);
+  const onClickRemove = (item: { product: Product; quantity: number }) => {
+    remove(item);
   };
 
   const onClickDecrease = () => {};
