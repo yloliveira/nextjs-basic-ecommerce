@@ -158,62 +158,34 @@ describe("pages/Product", () => {
     });
   });
 
-  it("should call router.push('/checkout'), when CheckoutButton is clicked, if there's session_id into the sessionStorage", async () => {
+  it("should call router.push('/cart'), when goToTheCartButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
 
     sessionStorage.setItem("session_id", "valid_session_id");
 
     await waitFor(() => {
-      fireEvent.click(screen.getByTestId("checkout"));
-      expect(nextNavigationPushMock).toHaveBeenCalledWith("/checkout");
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: /ir para o carrinho/i,
+        })
+      );
+      expect(nextNavigationPushMock).toHaveBeenCalledWith("/cart");
     });
   });
 
-  it("should not call router.push('/checkout'), when CheckoutButton is clicked, if there's no session_id into the sessionStorage", async () => {
-    product = server.create("product").attrs as ProductModel;
-    render(<Product params={{ slugId: product.slugId }} />);
-
-    sessionStorage.setItem("session_id", "");
-
-    await waitFor(() => {
-      fireEvent.click(screen.getByTestId("checkout"));
-      expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/checkout");
-    });
-  });
-
-  it("should call router.push('/login'), when CheckoutButton is clicked, if there's no session_id into the sessionStorage", async () => {
-    product = server.create("product").attrs as ProductModel;
-    render(<Product params={{ slugId: product.slugId }} />);
-
-    sessionStorage.setItem("session_id", "");
-
-    await waitFor(() => {
-      fireEvent.click(screen.getByTestId("checkout"));
-      expect(nextNavigationPushMock).toHaveBeenCalledWith("/login");
-    });
-  });
-
-  it("should call cart-store.toggle() when CheckoutButton is clicked", async () => {
+  it("should call cart-store.toggle() when goToTheCartButton is clicked", async () => {
     product = server.create("product").attrs as ProductModel;
     render(<Product params={{ slugId: product.slugId }} />);
 
     await waitFor(() => {
       const spy = jest.spyOn(result.current.actions, "toggle");
-      fireEvent.click(screen.getByTestId("checkout"));
+      fireEvent.click(
+        screen.getByRole("button", {
+          name: /ir para o carrinho/i,
+        })
+      );
       expect(spy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it("should not call router.push('/login'), when CheckoutButton is clicked, if there's session_id into the sessionStorage", async () => {
-    product = server.create("product").attrs as ProductModel;
-    render(<Product params={{ slugId: product.slugId }} />);
-
-    sessionStorage.setItem("session_id", "valid_session_id");
-
-    await waitFor(() => {
-      fireEvent.click(screen.getByTestId("checkout"));
-      expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/login");
     });
   });
 
