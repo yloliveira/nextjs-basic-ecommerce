@@ -41,4 +41,19 @@ describe("pages/Cart", () => {
       expect(result.current.state.items).toHaveLength(0);
     });
   });
+
+  it("should decrease the item quantity when decreaseButton is clicked", async () => {
+    const product = server.create("product").attrs as ProductModel;
+    const { add } = result.current.actions;
+    act(() => add({ product, quantity: 2 }));
+    render(<Cart />);
+
+    await waitFor(async () => {
+      expect(result.current.state.items[0].quantity).toBe(2);
+
+      fireEvent.click(screen.getByTestId("decrease-quantity"));
+
+      expect(result.current.state.items[0].quantity).toBe(1);
+    });
+  });
 });
