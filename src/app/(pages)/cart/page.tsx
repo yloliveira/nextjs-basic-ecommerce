@@ -121,7 +121,9 @@ export default function Cart() {
     remove(item);
   };
 
-  const onClickDecrease = () => {};
+  const onClickDecrease = (product: Product) => {
+    remove({ product, quantity: 1 });
+  };
 
   const onClickIncrease = () => {};
 
