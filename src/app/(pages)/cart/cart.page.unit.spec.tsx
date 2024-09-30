@@ -143,7 +143,7 @@ describe("pages/Cart", () => {
       expect(screen.getByTestId("increase-quantity")).toBeInTheDocument();
     });
 
-    it("should call props.onClickRemove() with the product data", () => {
+    it("should call props.onClickRemove() with the item data", () => {
       const product = server.create("product").attrs as ProductModel;
       render(
         <CartItem
@@ -158,7 +158,7 @@ describe("pages/Cart", () => {
       fireEvent.click(removeButton);
 
       expect(onClickRemove).toHaveBeenCalledTimes(1);
-      expect(onClickRemove).toHaveBeenCalledWith(product);
+      expect(onClickRemove).toHaveBeenCalledWith({ product, quantity: 2 });
     });
 
     it("should call props.onClickDecrease() with the product data", () => {
