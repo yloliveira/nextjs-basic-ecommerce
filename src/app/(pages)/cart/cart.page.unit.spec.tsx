@@ -200,10 +200,26 @@ describe("pages/Cart", () => {
 
   describe("PurchaseSummary", () => {
     it("should render a ProceedToCheckout button", () => {
+      const product = server.create("product").attrs as ProductModel;
+      const { add } = result.current.actions;
+      act(() => add({ product, quantity: 1 }));
       render(<Cart />);
+
+      const button = screen.getByRole("button", {
+        name: /continuar a compra/i,
+      });
+
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveProperty("disabled", false);
+    });
+
+    it("should disable the ProceedToCheckout button if the cart is empty", () => {
+      render(<Cart />);
+
+      expect(result.current.state.items.length).toBe(0);
       expect(
         screen.getByRole("button", { name: /continuar a compra/i })
-      ).toBeInTheDocument();
+      ).toHaveProperty("disabled", true);
     });
 
     it("should render the total of the products", () => {
