@@ -88,4 +88,20 @@ describe("pages/Cart", () => {
       expect(nextNavigationPushMock).toHaveBeenCalledWith("/checkout");
     });
   });
+
+  it("should not call router.push('/checkout'), when CheckoutButton is clicked, if there's no session_id into the sessionStorage", async () => {
+    const product = server.create("product").attrs as ProductModel;
+    const { add } = result.current.actions;
+    act(() => add({ product, quantity: 1 }));
+    render(<Cart />);
+
+    sessionStorage.setItem("session_id", "");
+
+    await waitFor(() => {
+      fireEvent.click(
+        screen.getByRole("button", { name: /continuar a compra/i })
+      );
+      expect(nextNavigationPushMock).not.toHaveBeenCalledWith("/checkout");
+    });
+  });
 });
