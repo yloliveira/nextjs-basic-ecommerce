@@ -132,7 +132,9 @@ export default function Cart() {
   };
 
   const onClickCheckout = () => {
-    router.push("/checkout");
+    if (sessionStorage.getItem("session_id")) {
+      router.push("/checkout");
+    }
   };
 
   return (
