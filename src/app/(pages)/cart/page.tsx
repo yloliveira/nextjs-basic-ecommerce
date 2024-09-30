@@ -193,6 +193,7 @@ export default function Cart() {
           <button
             className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base mb-2"
             onClick={onClickCheckout}
+            disabled={cartItems.length === 0}
           >
             Continuar a compra
           </button>
