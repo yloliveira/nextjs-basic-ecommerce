@@ -118,7 +118,28 @@ describe("components/CartItem", () => {
     expect(screen.getByTestId("quantity-stepper")).toBeInTheDocument();
     expect(screen.getByTestId("item-quantity")).toHaveTextContent("2");
     expect(screen.getByTestId("decrease-quantity")).toBeInTheDocument();
+    expect(screen.getByTestId("decrease-quantity")).toHaveProperty(
+      "disabled",
+      false
+    );
     expect(screen.getByTestId("increase-quantity")).toBeInTheDocument();
+  });
+
+  it("should disable the decrease button if the quantity is 1", () => {
+    const product = server.create("product").attrs as ProductModel;
+    render(
+      <CartItem
+        item={{ product, quantity: 1 }}
+        onClickRemove={onClickRemove}
+        onClickDecrease={onClickDecrease}
+        onClickIncrease={onClickIncrease}
+      />
+    );
+
+    expect(screen.getByTestId("decrease-quantity")).toHaveProperty(
+      "disabled",
+      true
+    );
   });
 
   it("should call props.onClickRemove() with the item data", () => {
@@ -143,7 +164,7 @@ describe("components/CartItem", () => {
     const product = server.create("product").attrs as ProductModel;
     render(
       <CartItem
-        item={{ product, quantity: 1 }}
+        item={{ product, quantity: 2 }}
         onClickRemove={onClickRemove}
         onClickDecrease={onClickDecrease}
         onClickIncrease={onClickIncrease}
