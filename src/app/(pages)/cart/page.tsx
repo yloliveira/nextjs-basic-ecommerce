@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Product } from "@/app/models/product";
 import { useCartStore } from "@/app/stores/cart-store";
 import Currency from "@/app/utils/currency";
@@ -108,6 +109,7 @@ export function CartItem({
 }
 
 export default function Cart() {
+  const router = useRouter();
   const cartItems = useCartStore(state => state.state.items);
   const { add, remove } = useCartStore(state => state.actions);
   const productsTotal = cartItems.reduce((acc, cur) => {
@@ -127,6 +129,10 @@ export default function Cart() {
 
   const onClickIncrease = (product: Product) => {
     add({ product, quantity: 1 });
+  };
+
+  const onClickCheckout = () => {
+    router.push("/checkout");
   };
 
   return (
@@ -182,7 +188,7 @@ export default function Cart() {
           </div>
           <button
             className="w-full h-12 bg-blue-500 rounded-md text-white font-semibold text-base mb-2"
-            onClick={() => {}}
+            onClick={onClickCheckout}
           >
             Continuar a compra
           </button>
