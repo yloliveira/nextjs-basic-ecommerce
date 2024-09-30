@@ -3,14 +3,14 @@ import React from "react";
 type Props = {
   isOpen: boolean;
   onClickSeeMoreProducts: () => void;
-  onClickCheckout: () => void;
+  onClickGoToTheCart: () => void;
   onClickClose: () => void;
 };
 
 export default function CartModal({
   isOpen,
   onClickSeeMoreProducts,
-  onClickCheckout,
+  onClickGoToTheCart,
   onClickClose,
 }: Props) {
   return (
@@ -76,11 +76,10 @@ export default function CartModal({
             Ver mais produtos
           </button>
           <button
-            data-testid="checkout"
             className="w-full h-12 rounded-md font-semibold text-base text-blue-500 bg-blue-50"
-            onClick={() => onClickCheckout()}
+            onClick={() => onClickGoToTheCart()}
           >
-            Finalizar a compra
+            Ir para o carrinho
           </button>
         </div>
       </div>

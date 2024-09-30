@@ -45,13 +45,9 @@ export default function Product({ params }: { params: { slugId: string } }) {
     router.push("/");
   };
 
-  const onClickCheckout = () => {
+  const onClickGoToTheCart = () => {
     toggle();
-    if (!sessionStorage.getItem("session_id")) {
-      router.push("/login");
-    } else {
-      router.push("/checkout");
-    }
+    router.push("/cart");
   };
 
   return (
@@ -60,7 +56,7 @@ export default function Product({ params }: { params: { slugId: string } }) {
         isOpen={modalOpen}
         onClickClose={onClickClose}
         onClickSeeMoreProducts={onClickSeeMoreProducts}
-        onClickCheckout={onClickCheckout}
+        onClickGoToTheCart={onClickGoToTheCart}
       />
       <section className="bg-white w-full max-w-7xl p-5 shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-10 sm:rounded-md">
         <img
