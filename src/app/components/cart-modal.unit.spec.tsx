@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import CartModal from "./cart-modal";
 
 const onClickSeeMoreProducts = jest.fn();
-const onClickCheckout = jest.fn();
+const onClickGoToTheCart = jest.fn();
 const onClickClose = jest.fn();
 
 const makeSut = (isOpen = true) => {
@@ -10,7 +10,7 @@ const makeSut = (isOpen = true) => {
     <CartModal
       isOpen={isOpen}
       onClickSeeMoreProducts={onClickSeeMoreProducts}
-      onClickCheckout={onClickCheckout}
+      onClickGoToTheCart={onClickGoToTheCart}
       onClickClose={onClickClose}
     />
   );
@@ -32,9 +32,11 @@ describe("components/CartModal", () => {
     expect(screen.getByTestId("see-more-products")).toBeInTheDocument();
   });
 
-  it("should render a 'checkout' button", async () => {
+  it("should render a 'go to the cart' button", async () => {
     makeSut();
-    expect(screen.getByTestId("checkout")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /ir para o carrinho/i })
+    ).toBeInTheDocument();
   });
 
   it("should have a fixed css class", () => {
@@ -59,11 +61,13 @@ describe("components/CartModal", () => {
     expect(onClickSeeMoreProducts).toHaveBeenCalledTimes(1);
   });
 
-  it("should call props.onClickCheckout()", () => {
+  it("should call props.onClickGoToTheCart()", () => {
     makeSut();
-    const [_, checkoutButton] = screen.getAllByRole("button");
-    fireEvent.click(checkoutButton);
-    expect(onClickCheckout).toHaveBeenCalledTimes(1);
+    const goToTheCartButton = screen.getByRole("button", {
+      name: /ir para o carrinho/i,
+    });
+    fireEvent.click(goToTheCartButton);
+    expect(onClickGoToTheCart).toHaveBeenCalledTimes(1);
   });
 
   it("should call props.onClickClose()", () => {

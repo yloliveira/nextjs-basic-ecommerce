@@ -26,9 +26,6 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Run Jest Tests
-        run: yarn test
-
       - name: Comment with Test Coverage
         uses: dkershner6/jest-coverage-commenter-action@v1
         with:

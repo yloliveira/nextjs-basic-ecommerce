@@ -11,7 +11,13 @@ export type Add = ({
   product: Product;
   quantity: number;
 }) => void;
-export type Remove = (product: Product) => void;
+export type Remove = ({
+  product,
+  quantity,
+}: {
+  product: Product;
+  quantity: number;
+}) => void;
 export type RemoveAll = () => void;
 
 type CartItem = {
@@ -61,15 +67,15 @@ export const useCartStore = create<useCartStoreProps>()(
             state.items[productIndex].quantity += quantity;
           });
         },
-        remove(product) {
+        remove({ product, quantity }) {
           set(({ state }) => {
             const productIndex = state.items.findIndex(
               (item: CartItem) => item.product.slugId === product.slugId
             );
             const PRODUCT_FOUND = productIndex >= 0;
             if (PRODUCT_FOUND) {
-              if (state.items[productIndex].quantity > 1) {
-                state.items[productIndex].quantity -= 1;
+              if (state.items[productIndex].quantity > quantity) {
+                state.items[productIndex].quantity -= quantity;
                 return;
               }
               state.items.splice(productIndex, 1);
