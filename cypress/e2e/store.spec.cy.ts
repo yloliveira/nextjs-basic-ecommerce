@@ -33,5 +33,16 @@ context("Store", () => {
 
       cy.get("div[data-testid='product-card']").should("have.length", 25);
     });
+
+    it("should navigate to the correct product page on click product card", () => {
+      cy.visit("/");
+
+      cy.get("div[data-testid='product-card']").first().click();
+
+      cy.location("pathname").should(
+        "match",
+        /\/product\/cavus-deripio-beatae-comedo-approbo$/
+      );
+    });
   });
 });
