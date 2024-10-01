@@ -35,6 +35,12 @@ context("Store", () => {
       cy.get('div[data-testid="logo"]').contains("mercado preso");
     });
 
+    it("should display the search form", () => {
+      cy.visit("/");
+
+      cy.get("input[type='search']").should("exist");
+    });
+
     it("should display the nav links", () => {
       cy.visit("/");
 
