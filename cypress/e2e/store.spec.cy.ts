@@ -16,5 +16,17 @@ context("Store", () => {
         .type("Some text")
         .should("have.value", "Some text");
     });
+
+    it("should navigate to the search page after submitting the search form", () => {
+      cy.visit("/");
+
+      cy.get("input[type='search']").type("Some text");
+
+      cy.get("form[name='search-form']").submit();
+
+      const textToMatch = `/search&term=Some text`;
+
+      cy.location("pathname").should("match", /\/search&term=Some%20text$/);
+    });
   });
 });
