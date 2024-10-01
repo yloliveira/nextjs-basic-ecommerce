@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context("Store", () => {
+context("Home Page", () => {
   it("should display the store", () => {
     cy.visit("/");
 
