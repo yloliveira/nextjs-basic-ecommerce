@@ -10,9 +10,9 @@ export default function Search({ onSubmit }: Props) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!text) return;
-
-    onSubmit({ text });
+    if (text.trim().length > 0) {
+      onSubmit({ text });
+    }
   }
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
