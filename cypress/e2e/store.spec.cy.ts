@@ -44,6 +44,14 @@ context("Store", () => {
 
       cy.location("pathname").should("match", /\/registration$/);
     });
+
+    it("should navigate to the login page on click in the login link", () => {
+      cy.visit("/");
+
+      cy.get('a[href*="/login"]').click();
+
+      cy.location("pathname").should("match", /\/login$/);
+    });
   });
 
   context("Products List", () => {
