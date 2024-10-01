@@ -28,6 +28,13 @@ context("Store", () => {
   });
 
   context("Header", () => {
+    it("should display the brand logo", () => {
+      cy.visit("/");
+
+      cy.get('div[data-testid="logo"]').should("exist");
+      cy.get('div[data-testid="logo"]').contains("mercado preso");
+    });
+
     it("should display the nav links", () => {
       cy.visit("/");
 
