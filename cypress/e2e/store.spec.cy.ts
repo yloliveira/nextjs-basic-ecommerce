@@ -60,6 +60,14 @@ context("Store", () => {
 
       cy.location("pathname").should("match", /\/purchases$/);
     });
+
+    it("should navigate to the cart page on click in the cart link", () => {
+      cy.visit("/");
+
+      cy.get('a[href*="/cart"]').click();
+
+      cy.location("pathname").should("match", /\/cart$/);
+    });
   });
 
   context("Products List", () => {
