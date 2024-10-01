@@ -27,6 +27,17 @@ context("Store", () => {
     });
   });
 
+  context("Header", () => {
+    it("should display the nav links", () => {
+      cy.visit("/");
+
+      cy.get('a[href*="/registration"]').should("exist");
+      cy.get('a[href*="/login"]').should("exist");
+      cy.get('a[href*="/purchases"]').should("exist");
+      cy.get('a[href*="/cart"]').should("exist");
+    });
+  });
+
   context("Products List", () => {
     it("should display the products list", () => {
       cy.visit("/");
