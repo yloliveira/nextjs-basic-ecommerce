@@ -36,6 +36,14 @@ context("Store", () => {
       cy.get('a[href*="/purchases"]').should("exist");
       cy.get('a[href*="/cart"]').should("exist");
     });
+
+    it("should navigate to the registration page on click in the registration link", () => {
+      cy.visit("/");
+
+      cy.get('a[href*="/registration"]').click();
+
+      cy.location("pathname").should("match", /\/registration$/);
+    });
   });
 
   context("Products List", () => {
