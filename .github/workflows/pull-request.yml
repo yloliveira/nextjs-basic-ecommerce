@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20.17.x
           cache: "yarn"
-        run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
 
       - name: Comment with Test Coverage
         uses: dkershner6/jest-coverage-commenter-action@v1
