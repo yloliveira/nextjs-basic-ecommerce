@@ -27,7 +27,9 @@ jobs:
         id: yarn-cache
         uses: actions/cache@v3
         with:
-          path: "~/.cache"
+          path: |
+            "**/node_modules"
+            ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
