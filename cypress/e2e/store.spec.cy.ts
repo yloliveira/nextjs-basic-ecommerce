@@ -44,6 +44,14 @@ context("Store", () => {
       cy.get('a[href*="/cart"]').should("exist");
     });
 
+    it("should navigate to the home page on click in the brand logo", () => {
+      cy.visit("/");
+
+      cy.get('div[data-testid="logo"]').click();
+
+      cy.location("pathname").should("match", /\/$/);
+    });
+
     it("should navigate to the registration page on click in the registration link", () => {
       cy.visit("/");
 
