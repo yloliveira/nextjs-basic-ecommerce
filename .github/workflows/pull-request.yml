@@ -42,5 +42,8 @@ jobs:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           test_command: "yarn test:coverage"
 
+      - name: E2E Tests
+        run: yarn test:e2e
+
       - name: Build
         run: yarn build
