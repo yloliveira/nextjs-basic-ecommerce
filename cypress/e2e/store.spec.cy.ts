@@ -21,12 +21,17 @@ context("Store", () => {
       cy.visit("/");
 
       cy.get("input[type='search']").type("Some text");
-
       cy.get("form[name='search-form']").submit();
 
-      const textToMatch = `/search&term=Some text`;
-
       cy.location("pathname").should("match", /\/search&term=Some%20text$/);
+    });
+  });
+
+  context("Products List", () => {
+    it("should display the products list", () => {
+      cy.visit("/");
+
+      cy.get("div[data-testid='product-card']").should("have.length", 25);
     });
   });
 });
