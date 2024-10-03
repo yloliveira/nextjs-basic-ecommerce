@@ -36,5 +36,12 @@ jobs:
       - name: E2E Tests
         run: yarn test:e2e
 
+      - name: Comment with Cypress report
+        uses: dmitry/cypress-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pathname: mochawesome-report/index.json
+        if: always()
+
       - name: Build
         run: yarn build

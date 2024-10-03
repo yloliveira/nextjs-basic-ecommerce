@@ -7,4 +7,11 @@ export default defineConfig({
     },
     baseUrl: "http://localhost:3000",
   },
+  reporter: "mochawesome",
+  reporterOptions: {
+    reportFilename: "index.json",
+    quiet: true,
+    html: false,
+    json: true,
+  },
 });
