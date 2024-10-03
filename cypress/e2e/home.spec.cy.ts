@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 context("Home Page", () => {
   it("should display the store", () => {
     cy.visit("/");
@@ -31,8 +29,8 @@ context("Home Page", () => {
     it("should display the brand logo", () => {
       cy.visit("/");
 
-      cy.get('div[data-testid="logo"]').should("exist");
-      cy.get('div[data-testid="logo"]').contains("mercado preso");
+      cy.getByTestId("logo").should("exist");
+      cy.getByTestId("logo").contains("mercado preso");
     });
 
     it("should display the search form", () => {
@@ -53,7 +51,7 @@ context("Home Page", () => {
     it("should navigate to the home page on click in the brand logo", () => {
       cy.visit("/");
 
-      cy.get('div[data-testid="logo"]').click();
+      cy.getByTestId("logo").click();
 
       cy.location("pathname").should("match", /\/$/);
     });
@@ -95,13 +93,13 @@ context("Home Page", () => {
     it("should display the products list", () => {
       cy.visit("/");
 
-      cy.get("div[data-testid='product-card']").should("have.length", 25);
+      cy.getByTestId("product-card").should("have.length", 25);
     });
 
     it("should navigate to the correct product page on click product card", () => {
       cy.visit("/");
 
-      cy.get("div[data-testid='product-card']").first().click();
+      cy.getByTestId("product-card").first().click();
 
       cy.location("pathname").should(
         "match",
